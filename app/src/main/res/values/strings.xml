@@ -1,0 +1,64 @@
+<resources>
+    <string name="app_name">FNC_APP</string>
+    <string name="LogoDesc">AppLogo</string>
+    <string name="Hello">Bienvenue</string>
+    <string name="email">E-mail</string>
+    <string name="pwd">Mot de pass</string>
+    <string name="login">S\'IDENTIFIER</string>
+    <string name="forgotpwd">Mot de pass oublié ?</string>
+    <string name="username">Nom de lutilisateur</string>
+    <string name="logout">Déconnecté</string>
+    <string name="title">Créer une nouvelle FNC</string>
+    <string name="dashTitle">Gérer les <font color='#6200ea'>anomalies</font> détectées</string>
+    <string name="addTitle">Saisir le <font color='#6200ea'>numéro de commande</font></string>
+    <string name="issueTitle">Saisir le <font color='#6200ea'>type de problème</font></string>
+    <string name="addNfc">Créer une nouvelle FNC</string>
+    <string name="updateNfc">Mettre à jour la FNC</string>
+    <string name="addCmd">Numéro de commande</string>
+    <string name="next">SUIVANT</string>
+    <string name="trans">Transporteur</string>
+    <string name="four">Fournisseur</string>
+    <string name="ddd">Fournisseur</string>
+
+
+    <!--Dummy Strings Can replace with real content from Database-->
+    <string-array name="planets_array">
+        <item>JD01634686900</item>
+        <item>JD01634686666</item>
+        <item>JD01634687866</item>
+        <item>ND12725913778</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+        <item>NT01421755431</item>
+
+    </string-array>
+</resources>
