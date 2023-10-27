@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:ignore="MissingConstraints"
-    tools:context=".MainActivity"
+    tools:context=".ui.activities.MainActivity"
     >
 
     <androidx.constraintlayout.widget.Guideline
@@ -48,7 +48,7 @@
         app:layout_constraintEnd_toStartOf="@+id/verticalR"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toTopOf="@+id/horizontalT"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/im_logo" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailTextInputLayout"

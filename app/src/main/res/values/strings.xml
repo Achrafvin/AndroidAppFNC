@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">FNC_APP</string>
-    <string name="LogoDesc">AppLogo</string>
+    <string name="app_name">Ambapharm</string>
+    <string name="LogoDesc">AmbapharmLogo</string>
     <string name="Hello">Bienvenue</string>
     <string name="email">E-mail</string>
     <string name="pwd">Mot de pass</string>
@@ -18,7 +18,13 @@
     <string name="next">SUIVANT</string>
     <string name="trans">Transporteur</string>
     <string name="four">Fournisseur</string>
-    <string name="ddd">Fournisseur</string>
+    <string name="numFnc">Numéro FNC</string>
+    <string name="lr">Ligne réserve</string>
+    <string name="pj">Pièce jointe</string>
+    <string name="ph">Photo</string>
+    <string name="ca">Caméra</string>
+    <string name="comment">Commentaire</string>
+    <string name="aucun">Aucun récapitulatif disponible</string>
 
 
     <!--Dummy Strings Can replace with real content from Database-->

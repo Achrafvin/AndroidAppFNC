@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingConstraints"
+    tools:context=".ui.activities.AddFnc">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalL"
+        style="@style/verticalL" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalR"
+        style="@style/verticalR"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalT"
+        style="@style/horizontalT"/>
+
+    <include layout="@layout/view_toolbar"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/title"
+        style="@style/TitleConstraintLayout">
+
+        <TextView
+            android:id="@+id/textView4"
+            style="@style/AddTitle"
+            android:text="@string/addTitle"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/menu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        app:endIconTint="@color/black"
+        app:boxBackgroundColor="@color/bg_color"
+        app:startIconDrawable="@drawable/ic_check"
+        app:startIconCheckable="true"
+        app:endIconDrawable="@drawable/ic_drag"
+        app:layout_constraintEnd_toStartOf="@+id/verticalR"
+        app:layout_constraintStart_toStartOf="@+id/verticalL"
+        app:layout_constraintTop_toBottomOf="@+id/title">
+
+        <AutoCompleteTextView
+            android:id="@+id/auto"
+            android:text="@string/addCmd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:paddingTop="@dimen/dp_8"
+            android:labelFor="@id/auto"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/nextIssue"
+        style="@style/Button"
+        android:drawableEnd="@drawable/ic_arrow_r"
+        android:drawableTint="@color/white"
+        android:text="@string/next"
+        app:layout_constraintTop_toBottomOf="@+id/menu" />
+</androidx.constraintlayout.widget.ConstraintLayout>

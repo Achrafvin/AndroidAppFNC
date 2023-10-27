@@ -1,0 +1,199 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingConstraints"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalL"
+        style="@style/verticalL"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalR"
+        style="@style/verticalR"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalT"
+        style="@style/horizontalT"
+        app:layout_constraintGuide_percent="0.16"/>
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/blue"
+            app:menu="@menu/top_bar_button"
+            app:navigationIconTint="@color/violet"
+            app:title="@string/numFnc"
+            app:titleTextColor="@color/violet" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_menu"
+        style="@style/Widget.MaterialComponents.FloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="33dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/green"
+        app:fabCustomSize="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="@dimen/dp_70"
+        android:layout_height="@dimen/dp_70"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/bg_circle_background"
+        android:backgroundTint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/appBarLayout" />
+
+    <!--First FAB-->
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_lr"
+        style="@style/Widget.MaterialComponents.FloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/app_name"
+        android:visibility="gone"
+        android:src="@drawable/ic_menu"
+        app:backgroundTint="@color/green"
+        app:fabCustomSize="50dp"
+        app:layout_constraintEnd_toEndOf="@id/verticalR"
+        app:layout_constraintTop_toTopOf="@+id/horizontalT" />
+
+    <TextView
+        android:id="@+id/lrText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_18"
+        android:background="@drawable/bg_fab"
+        android:padding="10dp"
+        android:textSize="@dimen/sp_16"
+        android:textStyle="bold"
+        android:text="@string/lr"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/fab_lr"
+        app:layout_constraintEnd_toStartOf="@id/fab_lr"
+        app:layout_constraintTop_toTopOf="@id/fab_lr" />
+
+    <!--Second FAB-->
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_pj"
+        style="@style/Widget.MaterialComponents.FloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_feed"
+        android:visibility="gone"
+        app:backgroundTint="@color/green"
+        app:fabCustomSize="50dp"
+        app:layout_constraintEnd_toEndOf="@id/verticalR"
+        app:layout_constraintTop_toBottomOf="@+id/fab_lr" />
+
+    <TextView
+        android:id="@+id/pjText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_fab"
+        android:padding="10dp"
+        android:text="@string/pj"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/fab_pj"
+        app:layout_constraintEnd_toEndOf="@+id/lrText"
+        app:layout_constraintStart_toStartOf="@+id/lrText"
+        app:layout_constraintTop_toTopOf="@id/fab_pj" />
+
+    <!--Third FAB-->
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_ph"
+        style="@style/Widget.MaterialComponents.FloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_image"
+        android:visibility="gone"
+        app:backgroundTint="@color/green"
+        app:fabCustomSize="50dp"
+        app:layout_constraintEnd_toEndOf="@id/verticalR"
+        app:layout_constraintTop_toBottomOf="@+id/fab_pj" />
+
+    <TextView
+        android:id="@+id/phText"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_fab"
+        android:padding="10dp"
+        android:text="@string/ph"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/fab_ph"
+        app:layout_constraintEnd_toEndOf="@+id/pjText"
+        app:layout_constraintStart_toStartOf="@+id/pjText"
+        app:layout_constraintTop_toTopOf="@id/fab_ph" />
+
+    <!--Fourh FAB-->
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_cam"
+        style="@style/Widget.MaterialComponents.FloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_camera"
+        android:visibility="gone"
+        app:backgroundTint="@color/green"
+        app:fabCustomSize="50dp"
+        app:layout_constraintEnd_toEndOf="@id/verticalR"
+        app:layout_constraintTop_toBottomOf="@+id/fab_ph" />
+
+    <TextView
+        android:id="@+id/caText"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_fab"
+        android:padding="10dp"
+        android:text="@string/ca"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/fab_cam"
+        app:layout_constraintEnd_toEndOf="@+id/phText"
+        app:layout_constraintStart_toStartOf="@+id/phText"
+        app:layout_constraintTop_toTopOf="@+id/fab_cam" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

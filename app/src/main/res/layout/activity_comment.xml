@@ -1,0 +1,141 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingConstraints">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalL"
+        style="@style/verticalL"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalR"
+        style="@style/verticalR"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalT"
+        style="@style/horizontalT"
+        app:layout_constraintGuide_percent="0.16"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/cmt"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:enabled="false"
+        app:boxBackgroundColor="@color/bg_color"
+        app:endIconDrawable="@drawable/ic_drag"
+        app:layout_constraintEnd_toStartOf="@+id/verticalR"
+        app:layout_constraintStart_toStartOf="@+id/verticalL"
+        app:layout_constraintTop_toBottomOf="@+id/includedToolbar"
+        app:layout_constraintTop_toTopOf="@+id/horizontalT"
+        app:startIconDrawable="@drawable/ic_check">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/cmtTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/bg_color"
+            android:drawableEnd="@drawable/ic_drag"
+            android:paddingTop="@dimen/dp_8"
+            android:text="issue Type"
+
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:text="@string/comment"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/verticalL"
+        app:layout_constraintTop_toBottomOf="@+id/cmt" />
+
+    <EditText
+        android:id="@+id/issue_cmt"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="100dp"
+        android:layout_marginTop="15dp"
+        android:ems="15"
+        android:gravity="start|top"
+        android:hint="Texte du commentaire"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toStartOf="@+id/verticalR"
+        app:layout_constraintStart_toStartOf="@+id/verticalL"
+        app:layout_constraintTop_toBottomOf="@+id/comment" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_2"
+        android:layout_marginTop="5dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toStartOf="@+id/verticalR"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/verticalL"
+        app:layout_constraintTop_toBottomOf="@+id/issue_cmt" />
+
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/verticalR"
+        app:layout_constraintStart_toStartOf="@+id/verticalL"
+        app:layout_constraintTop_toBottomOf="@+id/divider">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- Your dynamic card views go here -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/fnc_card_empty"
+                style="@style/Card"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:backgroundTint="@color/card">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/fnc_title"
+                        style="@style/Text"
+                        android:text="@string/aucun" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <FrameLayout
+                android:id="@+id/fncContentContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible">
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/cardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </FrameLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <include
+        android:id="@+id/includedToolbar"
+        layout="@layout/view_toolbar_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

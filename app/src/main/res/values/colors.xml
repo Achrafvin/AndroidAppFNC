@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="bg_color">#fffbfe</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#6200ea</color>
     <color name="circle">#e6e6e6</color>
     <color name="violet">#e2d1fb</color>
+    <color name="green">#03dac5</color>
+    <color name="gray">#747474</color>
+    <color name="card">#e1e1e1</color>
+    <color name="card_circle">#eeeeee</color>
+    <color name="red">#f16967</color>
+    <color name="divider">#d0b3f9</color>
+    <color name="text">#666666</color>
 </resources>
