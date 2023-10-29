@@ -1,25 +1,34 @@
 package com.ambapharm.ui.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.ambapharm.R;
+import com.ambapharm.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        Button button = findViewById(R.id.login);
-        button.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, Dashboard.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
-        });
+        setupLoginButton();
+    }
+
+    private void setupLoginButton() {
+        binding.login.setOnClickListener(v -> navigateToDashboard());
+    }
+
+    private void navigateToDashboard() {
+        Intent intent = new Intent(MainActivity.this, Dashboard.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

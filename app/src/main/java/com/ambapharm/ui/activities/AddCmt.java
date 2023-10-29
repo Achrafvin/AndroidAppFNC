@@ -14,43 +14,37 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ambapharm.ui.interfaces.CardActionListener;
-import com.ambapharm.DummyData;
-import com.ambapharm.data.models.IssueCard;
-import com.ambapharm.ui.adapters.IssueCardAdapter;
 import com.ambapharm.R;
+import com.ambapharm.data.models.ConstantFncNum;
+import com.ambapharm.data.models.ItemFactory;
+import com.ambapharm.data.models.ListItem;
+import com.ambapharm.ui.adapters.ItemAdapter;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddCmt extends AppCompatActivity {
 
+    private RecyclerView recyclerView;
+    private ItemAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
 
-        RecyclerView recyclerView = findViewById(R.id.cardView);
+        String value = getIntent().getStringExtra(ConstantFncNum.EXTRA_KEY);
+        MaterialToolbar toolbar = findViewById(R.id.topAppBar);
+        setSupportActionBar(toolbar);
+
+        recyclerView = findViewById(R.id.cardView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        List<IssueCard> dummyData = DummyData.generateDummyData();
-        final IssueCardAdapter adapter = new IssueCardAdapter(dummyData, null);
+        List<ListItem> items = generateDummyData(10);
 
-        adapter.setActionListener(new CardActionListener() {
-            @Override
-            public void onEditClick(int position) {
-                Toast.makeText(AddCmt.this, "Edit clicked for card at position: " + position, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onDeleteClick(int position) {
-                dummyData.remove(position);
-                adapter.notifyItemRemoved(position);
-            }
-        });
-
-
+        adapter = new ItemAdapter(items);
         recyclerView.setAdapter(adapter);
 
         FloatingActionButton fabMenu = findViewById(R.id.fab_menu);
@@ -58,6 +52,10 @@ public class AddCmt extends AppCompatActivity {
         FloatingActionButton fabPh = findViewById(R.id.fab_ph);
         FloatingActionButton fabCam = findViewById(R.id.fab_cam);
         FloatingActionButton fabLr = findViewById(R.id.fab_lr);
+
+        View overlay = findViewById(R.id.overlay);
+
+
 
         TextView pjText = findViewById(R.id.pjText);
         TextView phText = findViewById(R.id.phText);
@@ -72,11 +70,11 @@ public class AddCmt extends AppCompatActivity {
 
         fabMenu.setOnClickListener(view -> {
             if (fabPj.getVisibility() == View.GONE) {
-                // Show the FABs and TextViews with slide-in animation
                 fabPj.setVisibility(View.VISIBLE);
                 fabPh.setVisibility(View.VISIBLE);
                 fabCam.setVisibility(View.VISIBLE);
                 fabLr.setVisibility(View.VISIBLE);
+                overlay.setVisibility(View.VISIBLE);
 
                 pjText.setVisibility(View.VISIBLE);
                 phText.setVisibility(View.VISIBLE);
@@ -94,7 +92,6 @@ public class AddCmt extends AppCompatActivity {
                 lrText.startAnimation(slideInTop);
                 rotateOpen.start();
             } else {
-                // Hide the FABs and TextViews with slide-out animation
                 fabPj.startAnimation(slideOutTop);
                 fabPh.startAnimation(slideOutTop);
                 fabCam.startAnimation(slideOutTop);
@@ -109,6 +106,7 @@ public class AddCmt extends AppCompatActivity {
                 fabPh.setVisibility(View.GONE);
                 fabCam.setVisibility(View.GONE);
                 fabLr.setVisibility(View.GONE);
+                overlay.setVisibility(View.GONE);
 
                 pjText.setVisibility(View.GONE);
                 phText.setVisibility(View.GONE);
@@ -128,21 +126,43 @@ public class AddCmt extends AppCompatActivity {
         }
 
 
+        if (value != null) {
+            toolbar.setTitle(value);
+        } else {
+            Toast.makeText(this, "nothing", Toast.LENGTH_SHORT).show();
+        }
+
+
         CardView noFncCard = findViewById(R.id.fnc_card_empty);
         FrameLayout fncContentContainer = findViewById(R.id.fncContentContainer);
 
         if (fncDataAvailable()) {
-            noFncCard.setVisibility(View.GONE); // Hide the "No FNC available" card
-            fncContentContainer.setVisibility(View.VISIBLE); // Show your dynamic FNC content
-            // Load your FNC data into the fncContentContainer views
+            noFncCard.setVisibility(View.GONE);
+            fncContentContainer.setVisibility(View.VISIBLE);
         } else {
-            noFncCard.setVisibility(View.VISIBLE); // Show the "No FNC available" card
-            fncContentContainer.setVisibility(View.GONE); // Hide your dynamic FNC content
+            noFncCard.setVisibility(View.VISIBLE);
+            fncContentContainer.setVisibility(View.GONE);
         }
     }
 
+    private List<ListItem> generateDummyData(int count) {
+        List<ListItem> items = new ArrayList<>();
+        ItemFactory factory = new ItemFactory();
+
+        for (int i = 1; i <= count; i++) {
+            items.add(factory.createMedication("Medication " + i, "Problem Type " + i, "Lorem ipsum for medication " + i));
+        }
+
+        for (int i = 1; i <= count; i++) {
+            items.add(factory.createDocument("Document " + i));
+        }
+
+        return items;
+    }
+
+
     private boolean fncDataAvailable() {
-        return true;
+        return false;
     }
 
 }

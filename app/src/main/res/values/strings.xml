@@ -25,7 +25,15 @@
     <string name="ca">Caméra</string>
     <string name="comment">Commentaire</string>
     <string name="aucun">Aucun récapitulatif disponible</string>
-
+    <string name="issue_type">issue Type</string>
+    <string name="select_fnc">Veuillez sélectionner une commande</string>
+    <string name="select_option">Veuillez sélectionner une option</string>
+    <string name="error">Une erreur s\'est produite!</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="success">La FNC a été envoyée avec succès</string>
 
     <!--Dummy Strings Can replace with real content from Database-->
     <string-array name="planets_array">
@@ -67,4 +75,5 @@
         <item>NT01421755431</item>
 
     </string-array>
+
 </resources>

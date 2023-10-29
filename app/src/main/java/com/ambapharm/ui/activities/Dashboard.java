@@ -4,28 +4,35 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 import com.ambapharm.R;
+import com.ambapharm.databinding.ActivityDashboardBinding;
 
 public class Dashboard extends AppCompatActivity {
+
+    private ActivityDashboardBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
+        binding = ActivityDashboardBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        CardView addFnc = findViewById(R.id.addNfc);
-        CardView updateFnc = findViewById(R.id.updateNfc);
+        setupListeners();
+    }
 
-        addFnc.setOnClickListener(view -> {
-            Intent addIntent = new Intent(Dashboard.this, AddFnc.class);
-            startActivity(addIntent);
-        });
+    private void setupListeners() {
+        binding.addNfc.setOnClickListener(view -> navigateToAddFnc());
+        binding.updateNfc.setOnClickListener(view -> navigateToUpdateFnc());
+    }
 
-        updateFnc.setOnClickListener(view -> {
-            Intent intent = new Intent(Dashboard.this, UpdateFnc.class);
-            startActivity(intent);
-        });
+    private void navigateToAddFnc() {
+        Intent addIntent = new Intent(Dashboard.this, AddFnc.class);
+        startActivity(addIntent);
+    }
+
+    private void navigateToUpdateFnc() {
+        Intent updateIntent = new Intent(Dashboard.this, UpdateFnc.class);
+        startActivity(updateIntent);
     }
 }

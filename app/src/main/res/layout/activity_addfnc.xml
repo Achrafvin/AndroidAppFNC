@@ -38,25 +38,26 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="@dimen/dp_20"
-        app:endIconTint="@color/black"
+        android:layout_marginEnd="15dp"
         app:boxBackgroundColor="@color/bg_color"
-        app:startIconDrawable="@drawable/ic_check"
-        app:startIconCheckable="true"
         app:endIconDrawable="@drawable/ic_drag"
+        app:endIconTint="@color/black"
         app:layout_constraintEnd_toStartOf="@+id/verticalR"
         app:layout_constraintStart_toStartOf="@+id/verticalL"
-        app:layout_constraintTop_toBottomOf="@+id/title">
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:startIconCheckable="true"
+        app:startIconDrawable="@drawable/ic_check">
 
         <AutoCompleteTextView
             android:id="@+id/auto"
-            android:text="@string/addCmd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"
-            android:paddingTop="@dimen/dp_8"
             android:labelFor="@id/auto"
-            />
+            android:paddingTop="@dimen/dp_8"
+            android:text="@string/addCmd" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
