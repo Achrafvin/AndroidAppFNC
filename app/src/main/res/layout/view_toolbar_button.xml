@@ -19,25 +19,9 @@
         style="@style/horizontalT"
         app:layout_constraintGuide_percent="0.16"/>
 
-
-    <com.google.android.material.appbar.AppBarLayout
+    <include
         android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/blue"
-            app:menu="@menu/top_bar_button"
-            app:navigationIconTint="@color/violet"
-            app:title="@string/numFnc"
-            app:titleTextColor="@color/violet" />
-
-    </com.google.android.material.appbar.AppBarLayout>
+        layout="@layout/view_toolbar"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_menu"
@@ -54,6 +38,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
+        android:id="@+id/view"
         android:layout_width="@dimen/dp_70"
         android:layout_height="@dimen/dp_70"
         android:layout_marginTop="28dp"
@@ -70,14 +55,15 @@
         style="@style/Widget.MaterialComponents.FloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
         android:layout_marginEnd="8dp"
         android:contentDescription="@string/app_name"
-        android:visibility="gone"
         android:src="@drawable/ic_menu"
+        android:visibility="gone"
         app:backgroundTint="@color/green"
         app:fabCustomSize="50dp"
         app:layout_constraintEnd_toEndOf="@id/verticalR"
-        app:layout_constraintTop_toTopOf="@+id/horizontalT" />
+        app:layout_constraintTop_toBottomOf="@+id/fab_menu" />
 
     <TextView
         android:id="@+id/lrText"
@@ -86,10 +72,10 @@
         android:layout_marginEnd="@dimen/dp_18"
         android:background="@drawable/bg_fab"
         android:padding="10dp"
-        android:textSize="@dimen/sp_16"
-        android:textStyle="bold"
         android:text="@string/lr"
         android:textColor="@color/white"
+        android:textSize="@dimen/sp_16"
+        android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/fab_lr"
         app:layout_constraintEnd_toStartOf="@id/fab_lr"

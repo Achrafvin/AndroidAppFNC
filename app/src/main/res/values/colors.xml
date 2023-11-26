@@ -16,4 +16,5 @@
     <color name="ico">#bdbdbd</color>
     <color name="transparent">#66000000</color>
     <color name="success">#83cbc4</color>
+    <color name="fnc_bg">#f7f0fe</color>
 </resources>

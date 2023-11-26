@@ -89,7 +89,7 @@
         android:id="@+id/constraintLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="20dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/verticalR"
@@ -141,7 +141,7 @@
 
 
     <include
-        android:id="@+id/includedToolbar"
+        android:id="@id/includedToolbar"
         layout="@layout/view_toolbar_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,10 @@
 <resources>
     <string name="app_name">Ambapharm</string>
-    <string name="LogoDesc">AmbapharmLogo</string>
+    <string name="Logo">CIP Code</string>
     <string name="Hello">Bienvenue</string>
     <string name="email">E-mail</string>
     <string name="pwd">Mot de pass</string>
     <string name="login">S\'IDENTIFIER</string>
-    <string name="forgotpwd">Mot de pass oublié ?</string>
     <string name="username">Nom de lutilisateur</string>
     <string name="logout">Déconnecté</string>
     <string name="title">Créer une nouvelle FNC</string>
@@ -25,15 +24,24 @@
     <string name="ca">Caméra</string>
     <string name="comment">Commentaire</string>
     <string name="aucun">Aucun récapitulatif disponible</string>
-    <string name="issue_type">issue Type</string>
+    <string name="issue_type">Type de problème</string>
+    <string name="code_num">Code produit</string>
     <string name="select_fnc">Veuillez sélectionner une commande</string>
     <string name="select_option">Veuillez sélectionner une option</string>
     <string name="error">Une erreur s\'est produite!</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="title_home">Home</string>
+    <string name="title_home">Acceuil</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="success">La FNC a été envoyée avec succès</string>
+    <string name="vosfnc">Vos FNC</string>
+    <string name="slider_desc">FNC_Picker</string>
+    <string name="datePick">(DD/MM/YYYY)</string>
+    <string name="add_to_ligne">AJOUTER LA LIGNE</string>
+
+    <!--Login Handler-->
+    <string name="login_failed">Adresse e-mail ou mot de passe incorrect</string>
+
 
     <!--Dummy Strings Can replace with real content from Database-->
     <string-array name="planets_array">
@@ -44,35 +52,7 @@
         <item>NT01421755431</item>
         <item>NT01421755431</item>
         <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
-        <item>NT01421755431</item>
+
 
     </string-array>
 

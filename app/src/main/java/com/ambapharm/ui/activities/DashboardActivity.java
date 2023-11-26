@@ -1,14 +1,12 @@
 package com.ambapharm.ui.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.ambapharm.R;
 import com.ambapharm.databinding.ActivityDashboardBinding;
 
-public class Dashboard extends AppCompatActivity {
+public class DashboardActivity extends BaseActivity {
 
     private ActivityDashboardBinding binding;
 
@@ -17,22 +15,26 @@ public class Dashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityDashboardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        setupToolbar();
+        setupNavigation();
 
-        setupListeners();
+        //////////////////////////
+        updateHeaderWithUserName();
     }
 
-    private void setupListeners() {
+
+    private void setupNavigation() {
         binding.addNfc.setOnClickListener(view -> navigateToAddFnc());
         binding.updateNfc.setOnClickListener(view -> navigateToUpdateFnc());
     }
 
     private void navigateToAddFnc() {
-        Intent addIntent = new Intent(Dashboard.this, AddFnc.class);
+        Intent addIntent = new Intent(DashboardActivity.this, AddFncActivity.class);
         startActivity(addIntent);
     }
 
     private void navigateToUpdateFnc() {
-        Intent updateIntent = new Intent(Dashboard.this, UpdateFnc.class);
+        Intent updateIntent = new Intent(DashboardActivity.this, FncListActivity.class);
         startActivity(updateIntent);
     }
 }

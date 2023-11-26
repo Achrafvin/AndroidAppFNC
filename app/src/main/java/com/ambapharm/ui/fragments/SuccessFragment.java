@@ -1,4 +1,4 @@
-package com.ambapharm;
+package com.ambapharm.ui.fragments;
 
 import android.os.Bundle;
 
@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ambapharm.R;
+
 
 public class SuccessFragment extends Fragment {
 
@@ -16,7 +18,6 @@ public class SuccessFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_success, container, false);
         return view;
     }

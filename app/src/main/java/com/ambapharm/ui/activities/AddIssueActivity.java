@@ -5,13 +5,11 @@ import android.os.Bundle;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.ambapharm.R;
-import com.ambapharm.data.models.ConstantFncNum;
+import com.ambapharm.helpers.ConstantFncNum;
 import com.ambapharm.databinding.ActivityIssueBinding;
 
-public class AddIssue extends AppCompatActivity {
+public class AddIssueActivity extends BaseActivity {
 
     private ActivityIssueBinding binding;
 
@@ -20,8 +18,8 @@ public class AddIssue extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityIssueBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        String value = getIntent().getStringExtra(ConstantFncNum.EXTRA_KEY);
+        setupToolbar();
+        String value = getIntent().getStringExtra(ConstantFncNum.FNC_KEY);
         if (value == null) {
             Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
             finish();
@@ -30,6 +28,7 @@ public class AddIssue extends AppCompatActivity {
 
         setupRadioGroup();
         setupNextButton(value);
+        updateHeaderWithUserName();
     }
 
     private void setupRadioGroup() {
@@ -44,15 +43,15 @@ public class AddIssue extends AppCompatActivity {
                 String selectedValue = selectedRadioButton.getText().toString();
                 navigateToAddCmtActivity(selectedValue, value);
             } else {
-                Toast.makeText(AddIssue.this, R.string.select_option, Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddIssueActivity.this, R.string.select_option, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void navigateToAddCmtActivity(String selectedValue, String value) {
-        Intent intent = new Intent(AddIssue.this, AddCmt.class);
+        Intent intent = new Intent(AddIssueActivity.this, AddCommentActivity.class);
         intent.putExtra("selectedValue", selectedValue);
-        intent.putExtra(ConstantFncNum.EXTRA_KEY, value);
+        intent.putExtra(ConstantFncNum.FNC_KEY, value);
         startActivity(intent);
     }
 }

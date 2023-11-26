@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:ignore="MissingConstraints"
-    tools:context=".ui.activities.AddFnc">
+    tools:context=".ui.activities.AddFncActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/verticalL"
@@ -20,12 +20,9 @@
         android:id="@+id/horizontalT"
         style="@style/horizontalT"/>
 
-    <include layout="@layout/view_toolbar"/>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/title"
         style="@style/TitleConstraintLayout">
-
         <TextView
             android:id="@+id/textView4"
             style="@style/AddTitle"
@@ -40,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="@dimen/dp_20"
-        android:layout_marginEnd="15dp"
+        android:layout_marginEnd="@dimen/dp_15"
         app:boxBackgroundColor="@color/bg_color"
         app:endIconDrawable="@drawable/ic_drag"
         app:endIconTint="@color/black"
@@ -54,13 +51,11 @@
             android:id="@+id/auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="none"
+            android:inputType="number"
             android:labelFor="@id/auto"
-            android:paddingTop="@dimen/dp_8"
-            android:text="@string/addCmd" />
+            android:hint="@string/addCmd" />
 
     </com.google.android.material.textfield.TextInputLayout>
-
 
     <Button
         android:id="@+id/nextIssue"
@@ -69,4 +64,7 @@
         android:drawableTint="@color/white"
         android:text="@string/next"
         app:layout_constraintTop_toBottomOf="@+id/menu" />
+
+    <include layout="@layout/view_toolbar"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

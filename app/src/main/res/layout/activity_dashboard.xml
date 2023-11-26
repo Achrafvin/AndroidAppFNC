@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:ignore="MissingConstraints"
-    tools:context=".ui.activities.Dashboard">
+    tools:context=".ui.activities.DashboardActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/verticalL"
@@ -19,8 +19,6 @@
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/horizontalT"
         style="@style/horizontalT"/>
-
-    <include layout="@layout/view_toolbar"/>
 
     <TextView
         android:id="@+id/textView4"
@@ -108,5 +106,10 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <include
+        android:id="@+id/includedToolbar"
+        layout="@layout/view_toolbar"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

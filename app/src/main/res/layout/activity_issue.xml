@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:ignore="MissingConstraints"
-    tools:context=".ui.activities.AddIssue">
+    tools:context=".ui.activities.AddIssueActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/verticalL"
@@ -20,9 +20,7 @@
         android:id="@+id/horizontalT"
         style="@style/horizontalT"/>
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/view_toolbar" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/title"
@@ -69,4 +67,8 @@
         android:drawableTint="@color/white"
         android:text="@string/next"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/view_toolbar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

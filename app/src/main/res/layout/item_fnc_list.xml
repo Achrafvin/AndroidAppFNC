@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fnclist"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    android:clickable="true"
+    android:focusable="true" >
+
+        <TextView
+            android:id="@+id/FncNum"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/numFnc"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_22"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/datePick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/datePick"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/sp_15"
+            app:layout_constraintBottom_toBottomOf="@id/FncNum"
+            app:layout_constraintEnd_toStartOf="@+id/fncarrow"
+            app:layout_constraintHorizontal_bias="0.059"
+            app:layout_constraintStart_toEndOf="@id/FncNum"
+            app:layout_constraintTop_toTopOf="@id/FncNum"
+            app:layout_constraintVertical_bias="0.555" />
+
+        <ImageView
+            android:id="@id/fncarrow"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_rarrow"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

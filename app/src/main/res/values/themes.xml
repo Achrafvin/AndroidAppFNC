@@ -9,7 +9,6 @@
         <item name="colorSecondary">@color/violet</item>
         <item name="colorOnSecondary">@color/white</item>
     </style>
-
     <!--GuidLines Component-->
     <style name="verticalL">
         <item name="android:layout_width">wrap_content</item>
@@ -102,6 +101,6 @@
 
     </style>
     <style name="ColoredTextStyle" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">#6200ea</item>
+        <item name="android:textColor">@color/blue</item>
     </style>
 </resources>

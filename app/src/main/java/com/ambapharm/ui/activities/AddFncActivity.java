@@ -1,15 +1,14 @@
 package com.ambapharm.ui.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 import com.ambapharm.R;
-import com.ambapharm.data.models.ConstantFncNum;
+import com.ambapharm.helpers.ConstantFncNum;
 import com.ambapharm.databinding.ActivityAddfncBinding;
 
-public class AddFnc extends AppCompatActivity {
+public class AddFncActivity extends BaseActivity {
     private ActivityAddfncBinding binding;
     private boolean isItemSelected = false;
     private String selectedItem;
@@ -19,29 +18,36 @@ public class AddFnc extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityAddfncBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        setupToolbar();
         setupAutoCompleteTextView();
         setupButtonListener();
+        updateHeaderWithUserName();
     }
 
     private void setupAutoCompleteTextView() {
         String[] items = getResources().getStringArray(R.array.planets_array);
-        ArrayAdapter<String> itemAdapter = new ArrayAdapter<>(this, R.layout.item_list_number, items);
+        ArrayAdapter<String> itemAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, items);
         binding.auto.setAdapter(itemAdapter);
         binding.auto.setOnItemClickListener((parent, view, position, id) -> {
             isItemSelected = true;
             selectedItem = itemAdapter.getItem(position);
         });
+        binding.auto.setFreezesText(false);
     }
 
     private void setupButtonListener() {
         binding.nextIssue.setOnClickListener(v -> {
-            if (!isItemSelected) {
+            String inputText = binding.auto.getText().toString();
+            if (!isItemSelected && inputText.isEmpty()) {
                 Toast.makeText(this, R.string.select_fnc, Toast.LENGTH_SHORT).show();
-            } else {
-                Intent intent = new Intent(this, AddIssue.class);
-                intent.putExtra(ConstantFncNum.EXTRA_KEY, selectedItem);
-                startActivity(intent);
+                return;
             }
+            if (!isItemSelected) {
+                selectedItem = inputText;
+            }
+            Intent intent = new Intent(this, AddIssueActivity.class);
+            intent.putExtra(ConstantFncNum.FNC_KEY, selectedItem);
+            startActivity(intent);
         });
     }
 }
