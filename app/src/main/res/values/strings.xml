@@ -38,6 +38,8 @@
     <string name="slider_desc">FNC_Picker</string>
     <string name="datePick">(DD/MM/YYYY)</string>
     <string name="add_to_ligne">AJOUTER LA LIGNE</string>
+    <string name="close">Fermer</string>
+    <string name="save">Sauvegarder</string>
 
     <!--Login Handler-->
     <string name="login_failed">Adresse e-mail ou mot de passe incorrect</string>

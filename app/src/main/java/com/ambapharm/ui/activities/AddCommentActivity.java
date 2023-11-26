@@ -2,7 +2,6 @@ package com.ambapharm.ui.activities;
 
 import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,18 +9,15 @@ import android.view.View;
 
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.ambapharm.R;
+import com.ambapharm.databinding.ActivityCommentBinding;
 import com.ambapharm.helpers.ConstantFncNum;
 import com.ambapharm.ui.viewModels.AddCommentViewModel;
-import com.ambapharm.databinding.ActivityCommentBinding;
 import com.ambapharm.ui.adapters.GenericAdapter;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -72,15 +68,21 @@ public class AddCommentActivity extends BaseActivity implements GenericAdapter.O
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.top_app_bar, menu);
-        configureMenuItem(menu.findItem(R.id.headerIcon));
+        configureMenuItem(menu.findItem(R.id.headerIcon),R.drawable.ic_save);
         return true;
+    }
+
+    private void configureMenuItem(MenuItem item,int iconResId) {
+        item.setIcon(iconResId);
+        item.setTitle(R.string.save);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.headerIcon) {
             hideKeyboard();
-            Toast.makeText(this, "Saved Success", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, DashboardActivity.class));
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -93,12 +95,6 @@ public class AddCommentActivity extends BaseActivity implements GenericAdapter.O
         viewModel.getItems().observe(this, adapter::setItems);
     }
 
-    private void configureMenuItem(MenuItem item) {
-        item.setIcon(R.drawable.ic_save);
-        Drawable drawable = DrawableCompat.wrap(item.getIcon());
-        DrawableCompat.setTint(drawable, ContextCompat.getColor(this, R.color.violet));
-        item.setIcon(drawable);
-    }
 
     @Override
     public void onItemClick(int position) {
@@ -205,6 +201,6 @@ public class AddCommentActivity extends BaseActivity implements GenericAdapter.O
     }
 
     private void navigateToTargetActivity() {
-        startActivity(new Intent(this, AddImageActivity.class));
+        startActivity(new Intent(this, AddLigneRActivity.class));
     }
 }
