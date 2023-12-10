@@ -7,11 +7,11 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\AS\.android\avd\5.4_FWVGA_API_22.avd" />
+            <value value="C:\Users\AS\.android\avd\Zebra_TC26BK.avd" />
           </Key>
         </deviceKey>
       </Target>
     </targetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2023-11-24T16:36:52.902069800Z" />
+    <timeTargetWasSelectedWithDropDown value="2023-12-01T00:40:38.505942Z" />
   </component>
 </project>

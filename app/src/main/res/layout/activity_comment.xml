@@ -27,8 +27,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
         android:enabled="false"
         app:boxBackgroundColor="@color/bg_color"
         app:endIconDrawable="@drawable/ic_drag"
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/bg_color"
             android:drawableEnd="@drawable/ic_drag"
-            android:paddingTop="@dimen/dp_8"
+            android:paddingTop="@dimen/_8sdp"
             android:text="@string/issue_type"
 
             />
@@ -55,19 +55,19 @@
         android:id="@+id/comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="@dimen/_29sdp"
         android:text="@string/comment"
-        android:textSize="@dimen/sp_20"
+        android:textSize="@dimen/_14sdp"
         app:layout_constraintStart_toStartOf="@id/verticalL"
         app:layout_constraintTop_toBottomOf="@+id/cmt" />
 
     <EditText
         android:id="@+id/issue_cmt"
         android:layout_width="@dimen/dp_0"
-        android:layout_height="100dp"
-        android:layout_marginTop="15dp"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_marginTop="@dimen/_15sdp"
         android:gravity="start|top"
-        android:hint="Texte du commentaire"
+        android:hint="@string/comment_txt"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toStartOf="@+id/verticalR"
         app:layout_constraintStart_toStartOf="@+id/verticalL"
@@ -76,9 +76,9 @@
     <View
         android:id="@+id/divider"
         android:layout_width="@dimen/dp_0"
-        android:layout_height="@dimen/dp_2"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
+        android:layout_height="@dimen/_2sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
         android:background="?android:attr/listDivider"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toStartOf="@+id/verticalR"
@@ -87,9 +87,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="20dp"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_0"
+        android:layout_marginBottom="@dimen/_20sdp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/verticalR"
@@ -101,7 +101,7 @@
             android:id="@+id/fnc_card_empty"
             style="@style/Card"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="@dimen/_100sdp"
             android:backgroundTint="@color/card">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -120,7 +120,7 @@
         <FrameLayout
             android:id="@+id/fncContentContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:visibility="visible"
             app:layout_constraintTop_toBottomOf="@+id/fnc_card_empty">
 
@@ -130,18 +130,19 @@
                 android:layout_height="match_parent" />
         </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <View
         android:id="@+id/overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/transparent"
-        android:visibility="gone"
         android:clickable="true"
-        android:focusable="true"/>
+        android:focusable="true"
+        android:visibility="gone" />
 
 
     <include
         android:id="@id/includedToolbar"
-        layout="@layout/view_toolbar_button" />
+        layout="@layout/view_toolbar_button"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

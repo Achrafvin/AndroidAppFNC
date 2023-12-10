@@ -25,12 +25,11 @@
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:text="@string/dashTitle"
-        android:textSize="@dimen/sp_30"
-        android:paddingBottom="@dimen/dp_15"
+        android:textSize="@dimen/_22sdp"
+        android:paddingBottom="@dimen/_12sdp"
         android:textStyle="bold"
         android:textColor="@color/black"
         app:layout_constraintEnd_toStartOf="@+id/verticalR"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/verticalL"
         app:layout_constraintTop_toTopOf="@+id/horizontalT" />
 
@@ -38,21 +37,19 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/addNfc"
         style="@style/Card"
-        android:layout_height="@dimen/dp_120"
-        android:layout_marginTop="@dimen/dp_30"
+        android:layout_height="@dimen/_90sdp"
+        android:layout_marginTop="@dimen/_27sdp"
         app:layout_constraintTop_toBottomOf="@+id/textView4">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
             <View
-
-                android:layout_width="@dimen/dp_89"
-                android:layout_height="@dimen/dp_89"
-                android:layout_marginStart="@dimen/dp_32"
-                android:layout_marginTop="@dimen/dp_40"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_80sdp"
+                android:layout_marginStart="@dimen/_32sdp"
+                android:layout_marginTop="@dimen/_40sdp"
                 android:background="@drawable/bg_circle_background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -78,7 +75,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/updateNfc"
         style="@style/Card"
-        android:layout_height="@dimen/dp_120"
+        android:layout_height="@dimen/_90sdp"
         app:layout_constraintTop_toBottomOf="@+id/addNfc">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -86,10 +83,9 @@
             android:layout_height="match_parent">
 
             <View
-                android:layout_width="@dimen/dp_87"
-                android:layout_height="@dimen/dp_83"
-                android:layout_marginTop="56dp"
-                android:layout_marginEnd="28dp"
+                android:layout_width="@dimen/_87sdp"
+                android:layout_height="@dimen/_83sdp"
+                android:layout_marginTop="@dimen/_40sdp"
                 android:background="@drawable/bg_circle_background"
                 app:layout_constraintEnd_toStartOf="@+id/updateTitle"
                 app:layout_constraintTop_toTopOf="parent" />

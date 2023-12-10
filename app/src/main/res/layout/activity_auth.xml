@@ -22,15 +22,13 @@
         android:id="@+id/horizontalT"
         style="@style/horizontalT"/>
 
-
-
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Hello"
         android:textColor="@color/black"
-        android:textSize="@dimen/sp_40"
+        android:textSize="@dimen/_30sdp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toStartOf="@+id/imageView"
@@ -39,9 +37,9 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="@dimen/dp_100"
-        android:layout_height="@dimen/dp_100"
-        android:layout_marginStart="@dimen/dp_5"
+        android:layout_width="@dimen/_65sdp"
+        android:layout_height="@dimen/_65sdp"
+        android:layout_marginStart="@dimen/_5sdp"
         android:contentDescription="@string/Logo"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/emailLayout"
@@ -55,7 +53,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginTop="@dimen/_15sdp"
         android:hint="@string/email"
         app:layout_constraintEnd_toEndOf="@+id/verticalR"
         app:layout_constraintStart_toStartOf="@+id/verticalL"
@@ -78,7 +76,7 @@
         app:layout_constraintStart_toStartOf="@+id/verticalL"
         app:layout_constraintTop_toBottomOf="@+id/emailLayout"
         app:passwordToggleEnabled="true"
-        android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginTop="@dimen/_15sdp"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
 
         <com.google.android.material.textfield.TextInputEditText

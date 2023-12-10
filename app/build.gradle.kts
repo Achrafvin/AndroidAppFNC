@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "com.ambapharm"
-        minSdk = 21
+        minSdk = 27
         targetSdk = 34
         versionCode = 1
         versionName = "1.0.0"
@@ -44,6 +44,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.core:core-ktx:+")
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+    implementation ("com.intuit.sdp:sdp-android:1.1.0")
 
     //TEST
     testImplementation ("junit:junit:4.13.2")

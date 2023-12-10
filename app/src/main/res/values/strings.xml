@@ -18,10 +18,10 @@
     <string name="trans">Transporteur</string>
     <string name="four">Fournisseur</string>
     <string name="numFnc">Numéro FNC</string>
-    <string name="lr">Ligne réserve</string>
-    <string name="pj">Pièce jointe</string>
+    <string name="lr">Description</string>
+    <string name="pj">Bon de transport</string>
     <string name="ph">Photo</string>
-    <string name="ca">Caméra</string>
+    <string name="ca">Bon de livraison</string>
     <string name="comment">Commentaire</string>
     <string name="aucun">Aucun récapitulatif disponible</string>
     <string name="issue_type">Type de problème</string>
@@ -40,6 +40,8 @@
     <string name="add_to_ligne">AJOUTER LA LIGNE</string>
     <string name="close">Fermer</string>
     <string name="save">Sauvegarder</string>
+    <string name="quantity">Quantité</string>
+    <string name="comment_txt">Texte du commentaire</string>
 
     <!--Login Handler-->
     <string name="login_failed">Adresse e-mail ou mot de passe incorrect</string>

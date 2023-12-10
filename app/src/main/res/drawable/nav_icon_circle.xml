@@ -1,0 +1,17 @@
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Circle background -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/violet" />
+            <size
+                android:width="@dimen/dp_40"
+                android:height="@dimen/dp_40"/>
+        </shape>
+    </item>
+    <!-- Icon -->
+    <item
+        android:drawable="@drawable/ic_verified_user"
+        android:gravity="center"
+        />
+</layer-list>

@@ -24,6 +24,7 @@ public class AddCommentViewModel extends ViewModel {
     private void loadData() {
         List<ListItem> itemList = new ArrayList<>();
         itemList.add(new MedicationItem("Medication 1","Description","MoreInfo","20"));
+        itemList.add(new MedicationItem("Medication 1","Description","MoreInfo","20"));
         itemList.add(new DocumentItem("Document 5"));
         itemList.add(new ImageDocItem("Image Document 5"));
         items.setValue(itemList);

@@ -30,11 +30,9 @@ public class DashboardActivity extends BaseActivity {
 
     private void navigateToAddFnc() {
         startActivity(new Intent(this, AddFncActivity.class));
-        finish();
     }
 
     private void navigateToUpdateFnc() {
         startActivity(new Intent(this, FncListActivity.class));
-        finish();
     }
 }

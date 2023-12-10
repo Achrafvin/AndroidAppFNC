@@ -42,18 +42,18 @@
         app:layout_constraintStart_toStartOf="@id/verticalL"
         app:layout_constraintEnd_toEndOf="@id/verticalR"
         app:layout_constraintTop_toBottomOf="@id/title"
-        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginTop="@dimen/_20sdp"
         >
         <RadioButton
             android:id="@+id/trans"
             android:checked="false"
-            android:textSize="@dimen/sp_20"
+            android:textSize="@dimen/_15sdp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/trans"/>
         <RadioButton
             android:id="@+id/four"
-            android:textSize="@dimen/sp_20"
+            android:textSize="@dimen/_15sdp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/four"/>

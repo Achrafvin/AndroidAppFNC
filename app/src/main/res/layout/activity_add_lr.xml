@@ -18,15 +18,14 @@
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/horizontalT"
-        style="@style/horizontalT"
-        app:layout_constraintGuide_percent="0.16"/>
+        style="@style/horizontalT" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/codePod"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="@dimen/_12sdp"
         android:enabled="false"
         app:boxBackgroundColor="@color/bg_color"
         app:endIconDrawable="@drawable/ic_drag"
@@ -38,10 +37,10 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/codeNum"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:backgroundTint="@color/bg_color"
             android:drawableEnd="@drawable/ic_drag"
-            android:paddingTop="@dimen/dp_8"
+            android:paddingTop="@dimen/_8sdp"
             android:text="@string/code_num"
 
             />
@@ -50,11 +49,10 @@
 
     <ImageView
         android:id="@+id/codeIcon"
-        android:layout_width="@dimen/dp_60"
-        android:layout_height="@dimen/dp_60"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
         android:contentDescription="@string/Logo"
         android:scaleType="centerCrop"
-        android:elevation="@dimen/dp_20"
         android:clickable="true"
         android:focusable="true"
         app:layout_constraintEnd_toStartOf="@+id/verticalR"
@@ -67,9 +65,9 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_25sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
         android:enabled="false"
         app:boxBackgroundColor="@color/bg_color"
         app:endIconDrawable="@drawable/ic_drag"
@@ -81,10 +79,10 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/cmtTitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:backgroundTint="@color/bg_color"
             android:drawableEnd="@drawable/ic_drag"
-            android:paddingTop="@dimen/dp_8"
+            android:paddingTop="@dimen/_8sdp"
             android:text="@string/issue_type"
 
             />
@@ -97,8 +95,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:hint="Quantité"
+        android:layout_marginTop="@dimen/_11sdp"
+        android:hint="@string/quantity"
         app:layout_constraintEnd_toEndOf="@+id/cmt"
         app:layout_constraintStart_toStartOf="@+id/cmt"
         app:layout_constraintTop_toBottomOf="@+id/cmt">
@@ -114,40 +112,42 @@
         android:id="@+id/comment2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="@dimen/_40sdp"
         android:text="@string/comment"
-        android:textSize="@dimen/sp_20"
+        android:textSize="@dimen/_14sdp"
         app:layout_constraintStart_toStartOf="@id/verticalL"
         app:layout_constraintTop_toBottomOf="@+id/quantity" />
 
     <EditText
         android:id="@+id/issue_cmt2"
         android:layout_width="@dimen/dp_0"
-        android:layout_height="100dp"
+        android:layout_height="@dimen/_90sdp"
         android:gravity="start|top"
-        android:hint="Texte du commentaire"
+        android:hint="@string/comment_txt"
         android:inputType="textMultiLine"
+        android:textSize="@dimen/_12sdp"
         app:layout_constraintEnd_toStartOf="@+id/verticalR"
         app:layout_constraintStart_toStartOf="@+id/verticalL"
         app:layout_constraintTop_toBottomOf="@+id/comment2" />
 
     <Button
         android:id="@+id/addToLigne"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="@dimen/dp_80"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="@dimen/dp_15"
-        android:layout_marginEnd="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_55sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
         android:text="@string/add_to_ligne"
         android:textColor="@color/black"
         app:backgroundTint="@color/green"
         app:icon="@drawable/ic_add"
-        app:iconSize="35dp"
+        app:iconSize="@dimen/_25sdp"
         app:iconTint="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/issue_cmt2"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="@+id/issue_cmt2"
         app:layout_constraintTop_toBottomOf="@+id/issue_cmt2"
-        tools:textSize="20sp" />
+        tools:textSize="@dimen/_12sdp" />
 
     <include
         android:id="@+id/addImg"

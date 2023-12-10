@@ -23,60 +23,60 @@
         android:id="@+id/appBarLayout"
         layout="@layout/view_toolbar"/>
 
+    <!--First FAB-->
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_menu"
         style="@style/Widget.MaterialComponents.FloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="@dimen/_30sdp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_add"
         app:backgroundTint="@color/green"
-        app:fabCustomSize="60dp"
+        app:fabCustomSize="@dimen/_45sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/view"
-        android:layout_width="@dimen/dp_70"
-        android:layout_height="@dimen/dp_70"
-        android:layout_marginTop="28dp"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_27sdp"
         android:background="@drawable/bg_circle_background"
         android:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/appBarLayout" />
 
-    <!--First FAB-->
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_lr"
         style="@style/Widget.MaterialComponents.FloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="@dimen/_45sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_menu"
-        android:visibility="gone"
+        android:visibility="visible"
         app:backgroundTint="@color/green"
-        app:fabCustomSize="50dp"
+        app:fabCustomSize="@dimen/_37sdp"
         app:layout_constraintEnd_toEndOf="@id/verticalR"
         app:layout_constraintTop_toBottomOf="@+id/fab_menu" />
 
     <TextView
         android:id="@+id/lrText"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/_107sdp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dp_18"
+        android:layout_marginEnd="@dimen/_15sdp"
         android:background="@drawable/bg_fab"
-        android:padding="10dp"
+        android:padding="@dimen/_8sdp"
         android:text="@string/lr"
         android:textColor="@color/white"
-        android:textSize="@dimen/sp_16"
+        android:textSize="@dimen/_12sdp"
         android:textStyle="bold"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/fab_lr"
         app:layout_constraintEnd_toStartOf="@id/fab_lr"
         app:layout_constraintTop_toTopOf="@id/fab_lr" />
@@ -88,13 +88,13 @@
         style="@style/Widget.MaterialComponents.FloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_feed"
-        android:visibility="gone"
+        android:visibility="visible"
         app:backgroundTint="@color/green"
-        app:fabCustomSize="50dp"
+        app:fabCustomSize="@dimen/_37sdp"
         app:layout_constraintEnd_toEndOf="@id/verticalR"
         app:layout_constraintTop_toBottomOf="@+id/fab_lr" />
 
@@ -103,12 +103,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_fab"
-        android:padding="10dp"
+        android:padding="@dimen/_8sdp"
         android:text="@string/pj"
         android:textColor="@color/white"
-        android:textSize="@dimen/sp_16"
+        android:textSize="@dimen/_12sdp"
         android:textStyle="bold"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/fab_pj"
         app:layout_constraintEnd_toEndOf="@+id/lrText"
         app:layout_constraintStart_toStartOf="@+id/lrText"
@@ -116,70 +116,38 @@
 
     <!--Third FAB-->
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_ph"
-        style="@style/Widget.MaterialComponents.FloatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="8dp"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_image"
-        android:visibility="gone"
-        app:backgroundTint="@color/green"
-        app:fabCustomSize="50dp"
-        app:layout_constraintEnd_toEndOf="@id/verticalR"
-        app:layout_constraintTop_toBottomOf="@+id/fab_pj" />
-
     <TextView
-        android:id="@+id/phText"
+        android:id="@+id/caText"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_fab"
-        android:padding="10dp"
-        android:text="@string/ph"
+        android:padding="@dimen/_8sdp"
+        android:text="@string/ca"
         android:textColor="@color/white"
-        android:textSize="@dimen/sp_16"
+        android:textSize="@dimen/_12sdp"
         android:textStyle="bold"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/fab_ph"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/fab_cam"
         app:layout_constraintEnd_toEndOf="@+id/pjText"
         app:layout_constraintStart_toStartOf="@+id/pjText"
-        app:layout_constraintTop_toTopOf="@id/fab_ph" />
-
-    <!--Fourh FAB-->
+        app:layout_constraintTop_toTopOf="@+id/fab_cam" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_cam"
         style="@style/Widget.MaterialComponents.FloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="@dimen/_8sdp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_camera"
-        android:visibility="gone"
+        android:visibility="visible"
         app:backgroundTint="@color/green"
-        app:fabCustomSize="50dp"
+        app:fabCustomSize="@dimen/_37sdp"
         app:layout_constraintEnd_toEndOf="@id/verticalR"
-        app:layout_constraintTop_toBottomOf="@+id/fab_ph" />
+        app:layout_constraintTop_toBottomOf="@+id/fab_pj" />
 
-    <TextView
-        android:id="@+id/caText"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_fab"
-        android:padding="10dp"
-        android:text="@string/ca"
-        android:textColor="@color/white"
-        android:textSize="@dimen/sp_16"
-        android:textStyle="bold"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/fab_cam"
-        app:layout_constraintEnd_toEndOf="@+id/phText"
-        app:layout_constraintStart_toStartOf="@+id/phText"
-        app:layout_constraintTop_toTopOf="@+id/fab_cam" />
-
+    <!--Fourh FAB-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
