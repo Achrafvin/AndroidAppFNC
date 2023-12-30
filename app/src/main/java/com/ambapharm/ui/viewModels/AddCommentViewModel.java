@@ -24,10 +24,26 @@ public class AddCommentViewModel extends ViewModel {
     private void loadData() {
         List<ListItem> itemList = new ArrayList<>();
         itemList.add(new MedicationItem("Medication 1","Description","MoreInfo","20"));
-        itemList.add(new MedicationItem("Medication 1","Description","MoreInfo","20"));
+        itemList.add(new MedicationItem("Medication 2","Description","MoreInfo","20"));
+        itemList.add(new MedicationItem("Medication 3","Description","MoreInfo","20"));
+        itemList.add(new MedicationItem("Medication 4","Description","MoreInfo","20"));
         itemList.add(new DocumentItem("Document 5"));
+        itemList.add(new DocumentItem("Document 6"));
+        itemList.add(new DocumentItem("Document 7"));
+        itemList.add(new DocumentItem("Document 8"));
         itemList.add(new ImageDocItem("Image Document 5"));
+        itemList.add(new ImageDocItem("Image Document 6"));
+        itemList.add(new ImageDocItem("Image Document 7"));
+        itemList.add(new ImageDocItem("Image Document 8"));
         items.setValue(itemList);
+    }
+
+    public void removeItem(int position) {
+        if (items.getValue() != null) {
+            List<ListItem> updatedList = new ArrayList<>(items.getValue());
+            updatedList.remove(position);
+            items.setValue(updatedList);
+        }
     }
 
 }

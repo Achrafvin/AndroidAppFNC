@@ -21,7 +21,7 @@ public class AuthViewModel extends ViewModel {
         return loginErrorMessage;
     }
     public void login(String email, String password) {
-        if (!email.equals("ach@gmail.com") || !password.equals("123456")) {
+        if (!email.equals("user@example.com") || !password.equals("123456")) {
             loginErrorMessage.setValue("Adresse e-mail ou mot de passe incorrect");
             loginStatus.setValue(false);
         } else {

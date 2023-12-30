@@ -1,20 +1,32 @@
 package com.ambapharm.ui.adapters;
 
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.ambapharm.ui.adapters.clickListners.OnDeleteClickListener;
+import com.ambapharm.ui.adapters.clickListners.OnEditClickListener;
+import com.ambapharm.ui.adapters.clickListners.OnViewClickListener;
 
 import java.util.List;
 
-public class GenericAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class GenericAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnViewClickListener, OnDeleteClickListener, OnEditClickListener {
     private List<ListItem> items;
     private int selectedItemPosition = -1;
     private final OnItemClickListener listener;
+    private final Context context;
 
-    public GenericAdapter(List<ListItem> items, OnItemClickListener listener) {
+    private final OnItemDeleteListener itemDeleteListener;
+
+
+    public GenericAdapter(Context context,List<ListItem> items, OnItemClickListener listener,OnItemDeleteListener itemDeleteListener) {
+        this.context = context;
         this.items = items;
         this.listener = listener;
+        this.itemDeleteListener = itemDeleteListener;
     }
 
     @Override
@@ -24,7 +36,7 @@ public class GenericAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return ViewHolderFactory.createViewHolder(parent, viewType);
+        return ViewHolderFactory.createViewHolder(parent, viewType, this,this,this);
     }
 
     @Override
@@ -43,6 +55,7 @@ public class GenericAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return items != null ? items.size() : 0;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setItems(List<ListItem> newItems) {
         this.items = newItems;
         notifyDataSetChanged();
@@ -55,8 +68,33 @@ public class GenericAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return null;
     }
 
+    @Override
+    public void onViewClick(int position) {
+        String message = "Position: " + position + ", Button: View Button";
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+        listener.onItemClick(position);
+    }
+
+    @Override
+    public void onDeleteClick(int position) {
+        if (position >= 0 && position < items.size()) {
+            itemDeleteListener.onDeleteItem(position);
+        }
+    }
+
+    @Override
+    public void onEditClick(int position) {
+        String message = "Position: " + position + ", Button: Edit Button";
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+        listener.onItemClick(position);
+    }
+
     public interface OnItemClickListener {
         void onItemClick(int position);
+    }
+
+    public interface OnItemDeleteListener {
+        void onDeleteItem(int position);
     }
 
     public void setSelectedItem(int position) {

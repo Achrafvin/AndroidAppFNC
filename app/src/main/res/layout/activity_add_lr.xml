@@ -62,13 +62,12 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/cmt"
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_25sdp"
         android:layout_marginEnd="@dimen/_12sdp"
-        android:enabled="false"
         app:boxBackgroundColor="@color/bg_color"
         app:endIconDrawable="@drawable/ic_drag"
         app:layout_constraintEnd_toStartOf="@+id/verticalR"
@@ -76,16 +75,14 @@
         app:layout_constraintTop_toBottomOf="@+id/codePod"
         app:startIconDrawable="@drawable/ic_check">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/cmtTitle"
+        <AutoCompleteTextView
+            android:id="@+id/typeProblem"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:backgroundTint="@color/bg_color"
-            android:drawableEnd="@drawable/ic_drag"
-            android:paddingTop="@dimen/_8sdp"
-            android:text="@string/issue_type"
-
-            />
+            android:inputType="text"
+            android:labelFor="@id/typeProblem"
+            android:hint="@string/issue_type"
+        />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -119,16 +116,16 @@
         app:layout_constraintTop_toBottomOf="@+id/quantity" />
 
     <EditText
-        android:id="@+id/issue_cmt2"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="@dimen/_90sdp"
-        android:gravity="start|top"
-        android:hint="@string/comment_txt"
-        android:inputType="textMultiLine"
-        android:textSize="@dimen/_12sdp"
-        app:layout_constraintEnd_toStartOf="@+id/verticalR"
-        app:layout_constraintStart_toStartOf="@+id/verticalL"
-        app:layout_constraintTop_toBottomOf="@+id/comment2" />
+            android:id="@+id/issue_cmt2"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="@dimen/_90sdp"
+            android:gravity="start|top"
+            android:hint="@string/comment_txt"
+            android:inputType="textMultiLine"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintEnd_toStartOf="@+id/verticalR"
+            app:layout_constraintStart_toStartOf="@+id/verticalL"
+            app:layout_constraintTop_toBottomOf="@+id/comment2" android:autofillHints=""/>
 
     <Button
         android:id="@+id/addToLigne"

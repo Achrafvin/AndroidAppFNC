@@ -3,6 +3,7 @@ package com.ambapharm.ui.activities;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.ambapharm.R;
@@ -13,6 +14,8 @@ import com.journeyapps.barcodescanner.ScanIntentResult;
 public class AddLigneRActivity extends BaseActivity {
 
     private MaterialToolbar toolbar;
+    private boolean isItemSelected = false;
+    private String selectedItem;
     private ActivityAddLrBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,19 @@ public class AddLigneRActivity extends BaseActivity {
         binding.codeIcon.setOnClickListener(v->{
             scanBarcode();
         });
+        setupAutoCompleteTextView();
+    }
+
+
+    private void setupAutoCompleteTextView() {
+        String[] items = getResources().getStringArray(R.array.issue_type);
+        ArrayAdapter<String> itemAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, items);
+        binding.typeProblem.setAdapter(itemAdapter);
+        binding.typeProblem.setOnItemClickListener((parent, view, position, id) -> {
+            isItemSelected = true;
+            selectedItem = itemAdapter.getItem(position);
+        });
+        binding.typeProblem.setFreezesText(false);
     }
 
     private void setupToolbar(MaterialToolbar toolbar) {

@@ -20,46 +20,14 @@
         style="@style/horizontalT"
         app:layout_constraintGuide_percent="0.16"/>
 
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/cmt"
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:enabled="false"
-        app:boxBackgroundColor="@color/bg_color"
-        app:endIconDrawable="@drawable/ic_drag"
-        app:layout_constraintEnd_toStartOf="@+id/verticalR"
-        app:layout_constraintStart_toStartOf="@+id/verticalL"
-        app:layout_constraintTop_toBottomOf="@+id/includedToolbar"
-        app:layout_constraintTop_toTopOf="@+id/horizontalT"
-        app:startIconDrawable="@drawable/ic_check">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/cmtTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/bg_color"
-            android:drawableEnd="@drawable/ic_drag"
-            android:paddingTop="@dimen/_8sdp"
-            android:text="@string/issue_type"
-
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
     <TextView
-        android:id="@+id/comment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_29sdp"
-        android:text="@string/comment"
-        android:textSize="@dimen/_14sdp"
-        app:layout_constraintStart_toStartOf="@id/verticalL"
-        app:layout_constraintTop_toBottomOf="@+id/cmt" />
+            android:id="@+id/comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comment"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintStart_toStartOf="@id/verticalL"
+            app:layout_constraintTop_toTopOf="@+id/horizontalT"/>
 
     <EditText
         android:id="@+id/issue_cmt"

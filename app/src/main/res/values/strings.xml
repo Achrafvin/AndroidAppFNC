@@ -2,15 +2,20 @@
     <string name="app_name">Ambapharm</string>
     <string name="Logo">CIP Code</string>
     <string name="Hello">Bienvenue</string>
-    <string name="email">E-mail</string>
+    <string name="email">Identifiant</string>
     <string name="pwd">Mot de pass</string>
     <string name="login">S\'IDENTIFIER</string>
     <string name="username">Nom de lutilisateur</string>
     <string name="logout">Déconnecté</string>
     <string name="title">Créer une nouvelle FNC</string>
-    <string name="dashTitle">Gérer les <font color='#6200ea'>anomalies</font> détectées</string>
-    <string name="addTitle">Saisir le <font color='#6200ea'>numéro de commande</font></string>
-    <string name="issueTitle">Saisir le <font color='#6200ea'>type de problème</font></string>
+    <string name="dashTitle">Gérer les <font color='#6200ea'>anomalies</font> détectées
+    </string>
+    <string name="addTitle">Saisir le
+        <font color='#6200ea'>numéro de commande</font>
+    </string>
+    <string name="issueTitle">Saisir le
+        <font color='#6200ea'>type de problème</font>
+    </string>
     <string name="addNfc">Créer une nouvelle FNC</string>
     <string name="updateNfc">Mettre à jour la FNC</string>
     <string name="addCmd">Numéro de commande</string>
@@ -19,9 +24,9 @@
     <string name="four">Fournisseur</string>
     <string name="numFnc">Numéro FNC</string>
     <string name="lr">Description</string>
-    <string name="pj">Bon de transport</string>
+    <string name="pj">Joindre Fichier</string>
     <string name="ph">Photo</string>
-    <string name="ca">Bon de livraison</string>
+    <string name="ca">Joindre Photo</string>
     <string name="comment">Commentaire</string>
     <string name="aucun">Aucun récapitulatif disponible</string>
     <string name="issue_type">Type de problème</string>
@@ -45,6 +50,8 @@
 
     <!--Login Handler-->
     <string name="login_failed">Adresse e-mail ou mot de passe incorrect</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="select_from_gallery">Select from Gallery</string>
 
 
     <!--Dummy Strings Can replace with real content from Database-->
@@ -56,8 +63,16 @@
         <item>NT01421755431</item>
         <item>NT01421755431</item>
         <item>NT01421755431</item>
+    </string-array>
 
-
+    <string-array name="issue_type">
+        <item>Coli abimé transport sans résrve</item>
+        <item>Coli abimé transport avec résrve</item>
+        <item>Coli manquant</item>
+        <item>Problème de conformité de température</item>
+        <item>Produit.s abimé.s dans colis intact</item>
+        <item>Produit.s manquant.s dans colis intact</item>
+        <item>Produit.s en +</item>
     </string-array>
 
 </resources>

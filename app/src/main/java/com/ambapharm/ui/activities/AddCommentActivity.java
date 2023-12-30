@@ -2,29 +2,36 @@ package com.ambapharm.ui.activities;
 
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import android.widget.ImageView;
+import android.widget.PopupMenu;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.ambapharm.R;
 import com.ambapharm.databinding.ActivityCommentBinding;
 import com.ambapharm.helpers.ConstantFncNum;
+import com.ambapharm.ui.adapters.ListItem;
 import com.ambapharm.ui.viewModels.AddCommentViewModel;
 import com.ambapharm.ui.adapters.GenericAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class AddCommentActivity extends BaseActivity implements GenericAdapter.OnItemClickListener {
+public class AddCommentActivity extends BaseActivity implements GenericAdapter.OnItemClickListener,GenericAdapter.OnItemDeleteListener{
 
     private GenericAdapter adapter;
     private ActivityCommentBinding binding;
     private AddCommentViewModel viewModel;
 
-    private String toolbarTitle, valueFromRadioButton;
+    private String toolbarTitle;
     private static final float ROTATION_START = 0f;
     private static final float ROTATION_END = 45f;
 
@@ -34,17 +41,24 @@ public class AddCommentActivity extends BaseActivity implements GenericAdapter.O
         binding = ActivityCommentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         viewModel = new ViewModelProvider(this).get(AddCommentViewModel.class);
-
         initializeViews();
+
+
     }
 
     private void initializeViews() {
+
         retrieveIntentData();
         configureToolbar();
         setupRecyclerView();
+        viewModel.getItems().observe(this, items -> {
+            adapter.setItems(items);
+
+        });
+        toggleFncContentVisibility();
         setupFabMenu();
         setupButtonClickListener();
-        toggleFncContentVisibility();
+
     }
 
     @Override
@@ -79,7 +93,7 @@ public class AddCommentActivity extends BaseActivity implements GenericAdapter.O
     }
 
     private void setupRecyclerView() {
-        adapter = new GenericAdapter(new ArrayList<>(), this);
+        adapter = new GenericAdapter(this,new ArrayList<>(), this,this);
         binding.cardView.setLayoutManager(new LinearLayoutManager(this));
         binding.cardView.setAdapter(adapter);
         viewModel.getItems().observe(this, adapter::setItems);
@@ -92,8 +106,6 @@ public class AddCommentActivity extends BaseActivity implements GenericAdapter.O
 
     private void retrieveIntentData() {
         toolbarTitle = getIntent().getStringExtra(ConstantFncNum.FNC_KEY);
-        valueFromRadioButton = getIntent().getStringExtra("selectedValue");
-        binding.cmtTitle.setText(valueFromRadioButton != null ? valueFromRadioButton : "");
     }
 
     private void configureToolbar() {
@@ -142,15 +154,44 @@ public class AddCommentActivity extends BaseActivity implements GenericAdapter.O
     }
 
     private boolean fncDataAvailable() {
-        return true;
+        List<ListItem> items = viewModel.getItems().getValue();
+        return items != null && !items.isEmpty();
     }
+
+
 
     private void setupButtonClickListener() {
         binding.includedToolbar.fabLr.setOnClickListener(v -> navigateToTargetActivity());
+        binding.includedToolbar.fabCam.setOnClickListener(v -> openPopUp());
     }
 
     private void navigateToTargetActivity() {
         startActivity(new Intent(this, AddLigneRActivity.class));
     }
+
+    private void openPopUp() {
+        PopupMenu popup = new PopupMenu(this, findViewById(R.id.fab_cam));
+        popup.getMenuInflater().inflate(R.menu.addimage, popup.getMenu());
+        popup.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.menu_select_gallery:
+                    Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(galleryIntent, 1);
+                    break;
+                case R.id.menu_take_photo:
+                    // Code to take a photo
+                    break;
+            }
+            return true;
+        });
+        popup.show();
+    }
+
+    @Override
+    public void onDeleteItem(int position) {
+        viewModel.removeItem(position);
+    }
+
+
 
 }

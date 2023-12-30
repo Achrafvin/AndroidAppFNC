@@ -12,7 +12,7 @@ import com.ambapharm.ui.adapters.GenericAdapter;
 
 import java.util.ArrayList;
 
-public class FncListActivity extends BaseActivity implements GenericAdapter.OnItemClickListener {
+public class FncListActivity extends BaseActivity implements GenericAdapter.OnItemClickListener,GenericAdapter.OnItemDeleteListener {
     private GenericAdapter adapter;
     private FncListViewModel viewModel;
     private ActivityFnclistBinding binding;
@@ -31,7 +31,7 @@ public class FncListActivity extends BaseActivity implements GenericAdapter.OnIt
     }
 
     private void setupRecyclerView() {
-        adapter = new GenericAdapter(new ArrayList<>(), this);
+        adapter = new GenericAdapter(this,new ArrayList<>(), this,this);
         binding.fncListView.setLayoutManager(new LinearLayoutManager(this));
         binding.fncListView.setAdapter(adapter);
         viewModel.getItems().observe(this, adapter::setItems);
@@ -40,5 +40,10 @@ public class FncListActivity extends BaseActivity implements GenericAdapter.OnIt
     @Override
     public void onItemClick(int position) {
         adapter.setSelectedItem(position);
+    }
+
+    @Override
+    public void onDeleteItem(int position) {
+
     }
 }

@@ -45,7 +45,7 @@ public class AddFncActivity extends BaseActivity {
             if (!isItemSelected) {
                 selectedItem = inputText;
             }
-            Intent intent = new Intent(this, AddIssueActivity.class);
+            Intent intent = new Intent(this, AddCommentActivity.class);
             intent.putExtra(ConstantFncNum.FNC_KEY, selectedItem);
             startActivity(intent);
         });
