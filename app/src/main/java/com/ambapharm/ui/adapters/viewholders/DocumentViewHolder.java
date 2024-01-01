@@ -2,14 +2,14 @@ package com.ambapharm.ui.adapters.viewholders;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ambapharm.databinding.ItemIssueDocBinding;
+import com.ambapharm.databinding.ItemDocumentCardBinding;
 import com.ambapharm.ui.adapters.clickListners.OnDeleteClickListener;
 import com.ambapharm.ui.adapters.clickListners.OnViewClickListener;
 
 public class DocumentViewHolder extends RecyclerView.ViewHolder{
-    public ItemIssueDocBinding binding;
+    public ItemDocumentCardBinding binding;
 
-    public DocumentViewHolder(ItemIssueDocBinding binding, OnViewClickListener viewClickListener, OnDeleteClickListener deleteClickListener) {
+    public DocumentViewHolder(ItemDocumentCardBinding binding, OnViewClickListener viewClickListener, OnDeleteClickListener deleteClickListener) {
         super(binding.getRoot());
         this.binding = binding;
 

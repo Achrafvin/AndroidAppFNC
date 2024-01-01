@@ -8,10 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.ambapharm.R;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -44,7 +42,8 @@ public class BaseActivity extends AppCompatActivity {
         barcodeLauncher.launch(options);
     }
 
-    protected void onBarcodeScanned(ScanIntentResult result) {}
+    protected void onBarcodeScanned(ScanIntentResult result) {
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -62,17 +61,23 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void setupToolbar() {
-        Toolbar toolbar = findViewById(R.id.topAppBar);
-        setSupportActionBar(toolbar);
+        header = findViewById(R.id.topAppBar);
+        setSupportActionBar(header);
     }
 
     private void logoutUser() {
-        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("isLoggedIn", false);
-        editor.apply();
+        clearLoginStatus();
+        navigateToLogin();
+    }
 
-        Intent intent = new Intent(this, AuthActivity.class);
+    private void clearLoginStatus() {
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit().clear();
+        editor.apply();
+    }
+
+    private void navigateToLogin() {
+        Intent intent = new Intent(this, AuthenticationActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
@@ -81,20 +86,18 @@ public class BaseActivity extends AppCompatActivity {
     protected void hideKeyboard() {
         View view = getCurrentFocus();
         if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+                    .hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 
     protected void updateHeaderWithUserName() {
-        String userName = getUserName();
         header = findViewById(R.id.topAppBar);
-        header.setTitle(userName);
+        header.setTitle(getUserName());
     }
 
     private String getUserName() {
-        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPref", MODE_PRIVATE);
         return sharedPreferences.getString("userName", "Default Name");
     }
-
 }

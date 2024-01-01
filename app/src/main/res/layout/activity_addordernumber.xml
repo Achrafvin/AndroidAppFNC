@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:ignore="MissingConstraints"
-    tools:context=".ui.activities.AddFncActivity">
+    tools:context=".ui.activities.AddOrderNumberActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/verticalL"
@@ -26,7 +26,7 @@
         <TextView
             android:id="@+id/textView4"
             style="@style/AddTitle"
-            android:text="@string/addTitle"/>
+            android:text="@string/titleEnterOrderNumber"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:labelFor="@id/auto"
-            android:hint="@string/addCmd" />
+            android:hint="@string/labelOrderNumber" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -62,7 +62,7 @@
         style="@style/Button"
         android:drawableEnd="@drawable/ic_arrow_r"
         android:drawableTint="@color/white"
-        android:text="@string/next"
+        android:text="@string/buttonNext"
         app:layout_constraintTop_toBottomOf="@+id/menu" />
 
     <include layout="@layout/view_toolbar"/>

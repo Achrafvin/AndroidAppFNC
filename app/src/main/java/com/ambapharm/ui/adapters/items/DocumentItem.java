@@ -1,19 +1,21 @@
 package com.ambapharm.ui.adapters.items;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ambapharm.ui.adapters.ListItem;
 import com.ambapharm.ui.adapters.viewholders.DocumentViewHolder;
-import com.ambapharm.ui.adapters.BindableItem;
 
-public class DocumentItem extends ListItem implements Parcelable, BindableItem {
+public class DocumentItem extends ListItem{
     private String title;
+    private String filePath;
 
-    public DocumentItem(String title) {
+    public DocumentItem(String title, String filePath) {
         this.title = title;
+        this.filePath = filePath;
+    }
+
+    public String getFilePath() {
+        return filePath;
     }
 
     public String getTitle() {
@@ -24,32 +26,6 @@ public class DocumentItem extends ListItem implements Parcelable, BindableItem {
     public int getType() {
         return TYPE_DOCUMENT;
     }
-
-    protected DocumentItem(Parcel in) {
-        title = in.readString();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(title);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<DocumentItem> CREATOR = new Creator<DocumentItem>() {
-        @Override
-        public DocumentItem createFromParcel(Parcel in) {
-            return new DocumentItem(in);
-        }
-
-        @Override
-        public DocumentItem[] newArray(int size) {
-            return new DocumentItem[size];
-        }
-    };
 
     @Override
     public void bind(RecyclerView.ViewHolder viewHolder) {

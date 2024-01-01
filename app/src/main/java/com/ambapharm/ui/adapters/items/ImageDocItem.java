@@ -1,18 +1,22 @@
 package com.ambapharm.ui.adapters.items;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ambapharm.ui.adapters.ListItem;
 import com.ambapharm.ui.adapters.viewholders.ImageDocViewHolder;
+import com.bumptech.glide.Glide;
 
-public class ImageDocItem extends ListItem implements Parcelable {
+public class ImageDocItem extends ListItem {
     private String title;
+    private String imagePath;
 
-    public ImageDocItem(String title) {
+    public ImageDocItem(String title, String imagePath) {
         this.title = title;
+        this.imagePath = imagePath;
+    }
+
+    public String getImagePath() {
+        return imagePath;
     }
 
     public String getTitle() {
@@ -31,30 +35,4 @@ public class ImageDocItem extends ListItem implements Parcelable {
             holder.binding.imgTitle.setText(getTitle());
         }
     }
-
-    protected ImageDocItem(Parcel in) {
-        title = in.readString();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(title);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<ImageDocItem> CREATOR = new Creator<ImageDocItem>() {
-        @Override
-        public ImageDocItem createFromParcel(Parcel in) {
-            return new ImageDocItem(in);
-        }
-
-        @Override
-        public ImageDocItem[] newArray(int size) {
-            return new ImageDocItem[size];
-        }
-    };
 }

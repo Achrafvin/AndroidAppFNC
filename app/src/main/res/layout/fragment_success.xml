@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart=" @dimen/_20sdp"
         android:layout_marginEnd="@dimen/_25sdp"
-        android:text="@string/success"
+        android:text="@string/messageNcfSentSuccess"
         android:textAlignment="center"
         android:textSize="@dimen/_22sdp"
         app:layout_constraintEnd_toEndOf="@id/verticalR"

@@ -1,16 +1,20 @@
 package com.ambapharm.data.entities;
 
+import androidx.room.*;
+
+@Entity(tableName = "user")
 public class User {
-    private int id;
+    @PrimaryKey(autoGenerate = true)
+    private Long id;
     private String name;
     private String email;
     private String emailGroup;
     private String password;
     private String cip;
-    private int accessRightId;
+    private Long accessRightId;
 
-    public User(int id, String name, String email, String emailGroup, String password, String cip, int accessRightId) {
-        this.id = id;
+
+    public User(String name, String email, String emailGroup, String password, String cip, Long accessRightId) {
         this.name = name;
         this.email = email;
         this.emailGroup = emailGroup;
@@ -18,16 +22,11 @@ public class User {
         this.cip = cip;
         this.accessRightId = accessRightId;
     }
-
-    public User(String name) {
-        this.name = name;
-    }
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -71,11 +70,11 @@ public class User {
         this.cip = cip;
     }
 
-    public int getAccessRightId() {
+    public Long getAccessRightId() {
         return accessRightId;
     }
 
-    public void setAccessRightId(int accessRightId) {
+    public void setAccessRightId(Long accessRightId) {
         this.accessRightId = accessRightId;
     }
 }

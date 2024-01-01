@@ -16,42 +16,63 @@ public class AddIssueActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initializeUI();
+    }
+
+    private void initializeUI() {
         binding = ActivityIssueBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         setupToolbar();
-        String value = getIntent().getStringExtra(ConstantFncNum.FNC_KEY);
-        if (value == null) {
-            Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
-            finish();
+        updateHeaderWithUserDetails();
+
+        String fncValue = extractIntentExtra(ConstantFncNum.FNC_KEY);
+        if (fncValue == null) {
+            displayErrorMessageAndFinish();
             return;
         }
 
-        setupRadioGroup();
-        setupNextButton(value);
-        updateHeaderWithUserName();
+        initializeRadioGroup();
+        setupNextButton(fncValue);
     }
 
-    private void setupRadioGroup() {
+    private void initializeRadioGroup() {
         binding.radioGroup.clearCheck();
     }
 
-    private void setupNextButton(String value) {
-        binding.nextCmt.setOnClickListener(view -> {
-            int selectedId = binding.radioGroup.getCheckedRadioButtonId();
-            if (selectedId != -1) {
-                RadioButton selectedRadioButton = findViewById(selectedId);
-                String selectedValue = selectedRadioButton.getText().toString();
-                navigateToAddCmtActivity(selectedValue, value);
-            } else {
-                Toast.makeText(AddIssueActivity.this, R.string.select_option, Toast.LENGTH_SHORT).show();
-            }
-        });
+    private void setupNextButton(String fncValue) {
+        binding.nextCmt.setOnClickListener(view -> processNextButtonClick(fncValue));
     }
 
-    private void navigateToAddCmtActivity(String selectedValue, String value) {
-        Intent intent = new Intent(AddIssueActivity.this, AddCommentActivity.class);
-        intent.putExtra("selectedValue", selectedValue);
-        intent.putExtra(ConstantFncNum.FNC_KEY, value);
+    private void processNextButtonClick(String fncValue) {
+        int selectedId = binding.radioGroup.getCheckedRadioButtonId();
+        if (selectedId != -1) {
+            navigateToAddCommentActivity(selectedId, fncValue);
+        } else {
+            Toast.makeText(this, R.string.promptSelectOption, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void navigateToAddCommentActivity(int selectedId, String fncValue) {
+        RadioButton selectedRadioButton = findViewById(selectedId);
+        String selectedIssue = selectedRadioButton.getText().toString();
+
+        Intent intent = new Intent(this, AddFncActivity.class);
+        intent.putExtra("selectedIssue", selectedIssue);
+        intent.putExtra(ConstantFncNum.FNC_KEY, fncValue);
         startActivity(intent);
+    }
+
+    private String extractIntentExtra(String key) {
+        return getIntent().getStringExtra(key);
+    }
+
+    private void displayErrorMessageAndFinish() {
+        Toast.makeText(this, R.string.messageErrorOccurred, Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
+    private void updateHeaderWithUserDetails() {
+        updateHeaderWithUserName();
     }
 }

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.AddLigneRActivity">
+    tools:context=".ui.activities.AddDescriptionActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/verticalL"
@@ -41,7 +41,7 @@
             android:backgroundTint="@color/bg_color"
             android:drawableEnd="@drawable/ic_drag"
             android:paddingTop="@dimen/_8sdp"
-            android:text="@string/code_num"
+            android:text="@string/labelProductCode"
 
             />
 
@@ -51,7 +51,7 @@
         android:id="@+id/codeIcon"
         android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_40sdp"
-        android:contentDescription="@string/Logo"
+        android:contentDescription="@string/labelCipCode"
         android:scaleType="centerCrop"
         android:clickable="true"
         android:focusable="true"
@@ -81,7 +81,7 @@
             android:layout_height="match_parent"
             android:inputType="text"
             android:labelFor="@id/typeProblem"
-            android:hint="@string/issue_type"
+            android:hint="@string/labelProblemType"
         />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -93,12 +93,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_11sdp"
-        android:hint="@string/quantity"
+        android:hint="@string/labelQuantity"
         app:layout_constraintEnd_toEndOf="@+id/cmt"
         app:layout_constraintStart_toStartOf="@+id/cmt"
         app:layout_constraintTop_toBottomOf="@+id/cmt">
 
         <com.google.android.material.textfield.TextInputEditText
+android:id="@+id/quantityTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"/>
@@ -110,7 +111,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_40sdp"
-        android:text="@string/comment"
+        android:text="@string/inputComment"
         android:textSize="@dimen/_14sdp"
         app:layout_constraintStart_toStartOf="@id/verticalL"
         app:layout_constraintTop_toBottomOf="@+id/quantity" />
@@ -120,7 +121,7 @@
             android:layout_width="@dimen/dp_0"
             android:layout_height="@dimen/_90sdp"
             android:gravity="start|top"
-            android:hint="@string/comment_txt"
+            android:hint="@string/inputCommentText"
             android:inputType="textMultiLine"
             android:textSize="@dimen/_12sdp"
             app:layout_constraintEnd_toStartOf="@+id/verticalR"
@@ -134,7 +135,7 @@
         android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_12sdp"
         android:layout_marginEnd="@dimen/_20sdp"
-        android:text="@string/add_to_ligne"
+        android:text="@string/buttonAddLine"
         android:textColor="@color/black"
         app:backgroundTint="@color/green"
         app:icon="@drawable/ic_add"

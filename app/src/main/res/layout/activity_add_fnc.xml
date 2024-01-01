@@ -24,7 +24,7 @@
             android:id="@+id/comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/comment"
+            android:text="@string/inputComment"
             android:textSize="@dimen/_14sdp"
             app:layout_constraintStart_toStartOf="@id/verticalL"
             app:layout_constraintTop_toTopOf="@+id/horizontalT"/>
@@ -35,7 +35,7 @@
         android:layout_height="@dimen/_100sdp"
         android:layout_marginTop="@dimen/_15sdp"
         android:gravity="start|top"
-        android:hint="@string/comment_txt"
+        android:hint="@string/inputCommentText"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toStartOf="@+id/verticalR"
         app:layout_constraintStart_toStartOf="@+id/verticalL"
@@ -79,7 +79,7 @@
                 <TextView
                     android:id="@+id/fnc_title"
                     style="@style/Text"
-                    android:text="@string/aucun" />
+                    android:text="@string/messageNoSummaryAvailable" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

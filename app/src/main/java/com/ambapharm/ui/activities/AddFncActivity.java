@@ -1,53 +1,349 @@
 package com.ambapharm.ui.activities;
 
+import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
-import com.ambapharm.R;
-import com.ambapharm.helpers.ConstantFncNum;
-import com.ambapharm.databinding.ActivityAddfncBinding;
+import android.provider.MediaStore;
+import android.provider.OpenableColumns;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
-public class AddFncActivity extends BaseActivity {
-    private ActivityAddfncBinding binding;
-    private boolean isItemSelected = false;
-    private String selectedItem;
+import com.ambapharm.R;
+import com.ambapharm.databinding.ActivityAddFncBinding;
+import com.ambapharm.helpers.ConstantFncNum;
+import com.ambapharm.ui.adapters.ListItem;
+import com.ambapharm.ui.viewModels.AddFncViewModel;
+import com.ambapharm.ui.adapters.GenericAdapter;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class AddFncActivity extends BaseActivity implements GenericAdapter.OnItemDeleteListener {
+
+    private ActivityAddFncBinding binding;
+    private AddFncViewModel viewModel;
+    private GenericAdapter adapter;
+    private String toolbarTitle;
+
+    private ActivityResultLauncher<Intent> galleryActivityResultLauncher;
+    private ActivityResultLauncher<Intent> cameraActivityResultLauncher;
+    private ActivityResultLauncher<Intent> documentPickerActivityResultLauncher;
+
+    private static final float ROTATION_START = 0f;
+    private static final float ROTATION_END = 45f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityAddfncBinding.inflate(getLayoutInflater());
+        initializeActivity();
+    }
+
+    private void initializeActivity() {
+        binding = ActivityAddFncBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        setupToolbar();
-        setupAutoCompleteTextView();
-        setupButtonListener();
-        updateHeaderWithUserName();
+
+        viewModel = new ViewModelProvider(this).get(AddFncViewModel.class);
+        extractIntentData();
+        setFncTitleForToolbar();
+        initializeRecyclerView();
+        observeViewModel();
+        setupFloatingActionButtons();
+        setupButtonListeners();
+        initializeResultLauncher();
     }
 
-    private void setupAutoCompleteTextView() {
-        String[] items = getResources().getStringArray(R.array.planets_array);
-        ArrayAdapter<String> itemAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, items);
-        binding.auto.setAdapter(itemAdapter);
-        binding.auto.setOnItemClickListener((parent, view, position, id) -> {
-            isItemSelected = true;
-            selectedItem = itemAdapter.getItem(position);
-        });
-        binding.auto.setFreezesText(false);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (binding.includedToolbar.fabPj.getVisibility() == View.VISIBLE) {
+            toggleFabMenu(false);
+        }
     }
 
-    private void setupButtonListener() {
-        binding.nextIssue.setOnClickListener(v -> {
-            String inputText = binding.auto.getText().toString();
-            if (!isItemSelected && inputText.isEmpty()) {
-                Toast.makeText(this, R.string.select_fnc, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (!isItemSelected) {
-                selectedItem = inputText;
-            }
-            Intent intent = new Intent(this, AddCommentActivity.class);
-            intent.putExtra(ConstantFncNum.FNC_KEY, selectedItem);
-            startActivity(intent);
+    private void setFncTitleForToolbar() {
+        setSupportActionBar(binding.includedToolbar.appBarLayout.topAppBar);
+        binding.includedToolbar.appBarLayout.topAppBar.setTitle(
+                toolbarTitle != null && !toolbarTitle.isEmpty() ? toolbarTitle : getString(R.string.labelNcfNumber)
+        );
+        binding.includedToolbar.appBarLayout.topAppBar.setNavigationIcon(null);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_app_bar, menu);
+        configureMenuItem(menu.findItem(R.id.headerIcon), R.drawable.ic_save);
+        return true;
+    }
+
+    private void configureMenuItem(MenuItem item, int iconResId) {
+        item.setIcon(iconResId);
+        item.setTitle(R.string.buttonSave);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.headerIcon) {
+            saveAndNavigateToDashboard();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void initializeRecyclerView() {
+        adapter = new GenericAdapter(this, new ArrayList<>(),  this);
+        binding.cardView.setLayoutManager(new LinearLayoutManager(this));
+        binding.cardView.setAdapter(adapter);
+    }
+
+    private void extractIntentData() {
+        toolbarTitle = getIntent().getStringExtra(ConstantFncNum.FNC_KEY);
+    }
+
+
+
+
+
+    private void setupFloatingActionButtons() {
+        binding.includedToolbar.fabMenu.setOnClickListener(view -> {
+            hideKeyboard();
+            toggleFabMenu(binding.includedToolbar.fabPj.getVisibility() == View.GONE);
         });
     }
+
+    private void toggleFabMenu(boolean show) {
+        setFabVisibility(show ? View.VISIBLE : View.GONE);
+        animateFabMenu(show);
+    }
+
+    private void setFabVisibility(int visibility) {
+        binding.includedToolbar.fabPj.setVisibility(visibility);
+        binding.includedToolbar.fabCam.setVisibility(visibility);
+        binding.includedToolbar.fabLr.setVisibility(visibility);
+        binding.overlay.setVisibility(visibility);
+        binding.includedToolbar.pjText.setVisibility(visibility);
+        binding.includedToolbar.caText.setVisibility(visibility);
+        binding.includedToolbar.lrText.setVisibility(visibility);
+    }
+
+    private void animateFabMenu(boolean open) {
+        float startRotation = open ? ROTATION_START : ROTATION_END;
+        float endRotation = open ? ROTATION_END : ROTATION_START;
+        ObjectAnimator rotate = ObjectAnimator.ofFloat(binding.includedToolbar.fabMenu, "rotation", startRotation, endRotation);
+        rotate.start();
+    }
+
+    private void setupButtonListeners() {
+        binding.includedToolbar.fabLr.setOnClickListener(v -> navigateToAddLigneRActivity());
+        binding.includedToolbar.fabCam.setOnClickListener(v -> openCameraOptionsPopup());
+        binding.includedToolbar.fabPj.setOnClickListener(v -> openDocumentOptionsPopup());
+    }
+
+    private void initializeResultLauncher() {
+        galleryActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                        Uri imageUri = result.getData().getData();
+                        saveImageToStorage(imageUri);
+                    }
+                }
+        );
+        cameraActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                        Bundle extras = result.getData().getExtras();
+                        Bitmap imageBitmap = (Bitmap) extras.get("data");
+                        saveImageToStorage(imageBitmap);
+                    }
+                }
+        );
+
+        documentPickerActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                        Uri documentUri = result.getData().getData();
+                        saveDocumentToStorage(documentUri);
+                    }
+                }
+        );
+    }
+
+
+    private void saveImageToStorage(Bitmap bitmap) {
+        String filename = "ambapharm_" + System.currentTimeMillis() + ".jpg";
+        try (FileOutputStream out = openFileOutput(filename, Context.MODE_PRIVATE)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            String imagePath = getFilesDir() + "/" + filename;
+            viewModel.addImageFromCamera(imagePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void saveImageToStorage(Uri imageUri) {
+        String fileName = getFileName(imageUri);
+        File file = new File(getFilesDir(), fileName);
+        try (InputStream in = getContentResolver().openInputStream(imageUri);
+             OutputStream out = new FileOutputStream(file)) {
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = in.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
+            }
+            viewModel.addImageFromGallery(fileName, file.getAbsolutePath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void saveDocumentToStorage(Uri documentUri) {
+        String fileName = getFileName(documentUri);
+        File file = new File(getFilesDir(), fileName);
+        try (InputStream in = getContentResolver().openInputStream(documentUri);
+             OutputStream out = new FileOutputStream(file)) {
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = in.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
+            }
+            viewModel.addDocumentItem(fileName, file.getAbsolutePath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @SuppressLint("Range")
+    private String getFileName(Uri uri) {
+        String result = null;
+        if (uri.getScheme().equals("content")) {
+            try (Cursor cursor = getContentResolver().query(uri, null, null, null, null)) {
+                if (cursor != null && cursor.moveToFirst()) {
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                }
+            }
+        }
+        if (result == null) {
+            result = uri.getPath();
+            int cut = result.lastIndexOf('/');
+            if (cut != -1) {
+                result = result.substring(cut + 1);
+            }
+        }
+        return result;
+    }
+
+
+
+    private void navigateToAddLigneRActivity() {
+        startActivity(new Intent(this, AddDescriptionActivity.class));
+    }
+
+    private void openCameraOptionsPopup() {
+        final View dialogView = LayoutInflater.from(this)
+                .inflate(R.layout.photodialog, null);
+        final BottomSheetDialog dialog = new BottomSheetDialog(this);
+        dialog.setContentView(dialogView);
+        dialogView.findViewById(R.id.btnChooseGallery).setOnClickListener(v -> {
+            openGallery();
+            dialog.dismiss();
+        });
+        dialogView.findViewById(R.id.btnTakePhoto).setOnClickListener(v -> {
+            openCamera();
+            dialog.dismiss();
+        });
+        dialog.show();
+    }
+
+    private void openDocumentOptionsPopup() {
+        final View dialogView = LayoutInflater.from(this)
+                .inflate(R.layout.documentdialog, null);
+        final BottomSheetDialog dialog = new BottomSheetDialog(this);
+        dialog.setContentView(dialogView);
+        dialogView.findViewById(R.id.btnChooseDocument).setOnClickListener(v -> {
+            openDocument();
+            dialog.dismiss();
+        });
+
+        dialog.show();
+    }
+
+    private void openGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        galleryActivityResultLauncher.launch(galleryIntent);
+    }
+
+    private void openCamera() {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+            cameraActivityResultLauncher.launch(cameraIntent);
+        }
+    }
+
+    private void openDocument() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("application/pdf");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+        documentPickerActivityResultLauncher.launch(intent);
+    }
+
+    private void observeViewModel() {
+        viewModel.getItems().observe(this, this::updateItemList);
+        toggleContentVisibility();
+    }
+
+    private void updateItemList(List<ListItem> items) {
+        adapter.setItems(items);
+    }
+
+    private void toggleContentVisibility() {
+        boolean isDataAvailable = isFncDataAvailable();
+        binding.fncCardEmpty.setVisibility(isDataAvailable ? View.GONE : View.VISIBLE);
+        binding.fncContentContainer.setVisibility(isDataAvailable ? View.VISIBLE : View.GONE);
+    }
+
+    private boolean isFncDataAvailable() {
+        List<ListItem> items = viewModel.getItems().getValue();
+        return items != null && !items.isEmpty();
+    }
+
+    private void saveAndNavigateToDashboard() {
+        hideKeyboard();
+        startActivity(new Intent(this, DashboardActivity.class));
+        finish();
+    }
+
+    @Override
+    public void onDeleteItem(int position) {
+        new AlertDialog.Builder(this)
+                .setTitle("Confirmer la Suppression")
+                .setMessage("Êtes-vous sûr de vouloir supprimer cet élément ?")
+                .setPositiveButton("Supprimé", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        viewModel.removeItem(position);
+                    }
+                })
+                .setNegativeButton("Annuler", null)
+                .show();
+    }
+
 }

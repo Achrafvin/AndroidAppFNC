@@ -1,57 +1,55 @@
 <resources>
-    <string name="app_name">Ambapharm</string>
-    <string name="Logo">CIP Code</string>
-    <string name="Hello">Bienvenue</string>
-    <string name="email">Identifiant</string>
-    <string name="pwd">Mot de pass</string>
-    <string name="login">S\'IDENTIFIER</string>
-    <string name="username">Nom de lutilisateur</string>
-    <string name="logout">Déconnecté</string>
-    <string name="title">Créer une nouvelle FNC</string>
-    <string name="dashTitle">Gérer les <font color='#6200ea'>anomalies</font> détectées
-    </string>
-    <string name="addTitle">Saisir le
-        <font color='#6200ea'>numéro de commande</font>
-    </string>
-    <string name="issueTitle">Saisir le
-        <font color='#6200ea'>type de problème</font>
-    </string>
-    <string name="addNfc">Créer une nouvelle FNC</string>
-    <string name="updateNfc">Mettre à jour la FNC</string>
-    <string name="addCmd">Numéro de commande</string>
-    <string name="next">SUIVANT</string>
-    <string name="trans">Transporteur</string>
-    <string name="four">Fournisseur</string>
-    <string name="numFnc">Numéro FNC</string>
-    <string name="lr">Description</string>
-    <string name="pj">Joindre Fichier</string>
-    <string name="ph">Photo</string>
-    <string name="ca">Joindre Photo</string>
-    <string name="comment">Commentaire</string>
-    <string name="aucun">Aucun récapitulatif disponible</string>
-    <string name="issue_type">Type de problème</string>
-    <string name="code_num">Code produit</string>
-    <string name="select_fnc">Veuillez sélectionner une commande</string>
-    <string name="select_option">Veuillez sélectionner une option</string>
-    <string name="error">Une erreur s\'est produite!</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_home">Acceuil</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="success">La FNC a été envoyée avec succès</string>
-    <string name="vosfnc">Vos FNC</string>
-    <string name="slider_desc">FNC_Picker</string>
-    <string name="datePick">(DD/MM/YYYY)</string>
-    <string name="add_to_ligne">AJOUTER LA LIGNE</string>
-    <string name="close">Fermer</string>
-    <string name="save">Sauvegarder</string>
-    <string name="quantity">Quantité</string>
-    <string name="comment_txt">Texte du commentaire</string>
+    <string name="appName">Ambapharm</string>
+    <string name="labelCipCode">CIP Code</string>
+    <string name="messageWelcome">Bienvenue</string>
+    <string name="inputIdentifiant">Identifiant</string>
+    <string name="inputPassword">Mot de passe</string>
+    <string name="buttonLogin">S\'IDENTIFIER</string>
+    <string name="labelUsername">Nom de l\'utilisateur</string>
+    <string name="labelSelectOption">Choisir une option</string>
+    <string name="buttonLogout">Déconnecté</string>
+    <string name="titleCreateNcf">Créer une nouvelle FNC</string>
+    <string name="titleManageAnomalies">Gérer les <font color='#6200ea'>anomalies</font> détectées</string>
+    <string name="titleEnterOrderNumber">Saisir le
+        <font color='#6200ea'>numéro de commande</font></string>
+    <string name="titleEnterProblemType">Saisir le
+        <font color='#6200ea'>type de problème</font></string>
+    <string name="buttonCreateNcf">Créer une nouvelle FNC</string>
+    <string name="buttonUpdateNcf">Mettre à jour la FNC</string>
+    <string name="labelOrderNumber">Numéro de commande</string>
+    <string name="buttonNext">SUIVANT</string>
+    <string name="labelCarrier">Transporteur</string>
+    <string name="labelSupplier">Fournisseur</string>
+    <string name="labelNcfNumber">Numéro FNC</string>
+    <string name="labelDescription">Description</string>
+    <string name="buttonAttachFile">Joindre Fichier</string>
+    <string name="labelPhoto">Photo</string>
+    <string name="buttonAttachPhoto">Joindre Photo</string>
+    <string name="inputComment">Commentaire</string>
+    <string name="messageNoSummaryAvailable">Aucun récapitulatif disponible</string>
+    <string name="labelProblemType">Type de problème</string>
+    <string name="labelProductCode">Code produit</string>
+    <string name="promptSelectOrder">Veuillez sélectionner une commande</string>
+    <string name="promptSelectOption">Veuillez sélectionner une option</string>
+    <string name="messageErrorOccurred">Une erreur s\'est produite!</string>
+    <string name="titleMainActivity">MainActivity</string>
+    <string name="titleHome">Acceuil</string>
+    <string name="titleDashboard">Dashboard</string>
+    <string name="titleNotifications">Notifications</string>
+    <string name="messageNcfSentSuccess">La FNC a été envoyée avec succès</string>
+    <string name="labelYourFNC">Vos FNC</string>
+    <string name="labelFncPicker">FNC_Picker</string>
+    <string name="formatDate">(DD/MM/YYYY)</string>
+    <string name="buttonAddLine">AJOUTER LA LIGNE</string>
+    <string name="buttonClose">Fermer</string>
+    <string name="buttonSave">Sauvegarder</string>
+    <string name="labelQuantity">Quantité</string>
+    <string name="inputCommentText">Texte du commentaire</string>
+    <string name="actionTakePhoto">Take Photo</string>
+    <string name="actionSelectFromGallery">Select from Gallery</string>
+    <string name="errorLoginFailed">Adresse e-mail ou mot de passe incorrect</string>
+    <string name="promptSelectDate">Cliquez ici pour sélectionner une date</string>
 
-    <!--Login Handler-->
-    <string name="login_failed">Adresse e-mail ou mot de passe incorrect</string>
-    <string name="take_photo">Take Photo</string>
-    <string name="select_from_gallery">Select from Gallery</string>
 
 
     <!--Dummy Strings Can replace with real content from Database-->

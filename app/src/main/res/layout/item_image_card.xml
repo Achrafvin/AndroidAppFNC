@@ -2,42 +2,43 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/doc"
+    android:id="@+id/imageDoc"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:backgroundTint="@color/white"
     android:layout_marginBottom="@dimen/_10sdp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="@dimen/_6sdp">
 
         <ImageView
-            android:id="@+id/docIcon"
+            android:id="@+id/imgIcon"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
             android:background="@drawable/bg_circle_background"
-            android:src="@drawable/ic_feed"
+            android:src="@drawable/ic_image"
             android:padding="@dimen/_9sdp"
             app:tint="@color/ico"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/docTitle"
+            android:id="@+id/imgTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_5sdp"
             android:text="Nom du document"
             android:textColor="@color/black"
             android:textSize="@dimen/_14sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/docIcon"
-            app:layout_constraintEnd_toStartOf="@+id/find"
-            app:layout_constraintStart_toEndOf="@+id/docIcon"
-            app:layout_constraintTop_toTopOf="@+id/docIcon" />
+            app:layout_constraintBottom_toBottomOf="@+id/imgIcon"
+            app:layout_constraintEnd_toStartOf="@id/findImg"
+            app:layout_constraintStart_toEndOf="@+id/imgIcon"
+            app:layout_constraintTop_toTopOf="@+id/imgIcon" />
 
         <ImageView
-            android:id="@id/deleteDoc"
+            android:id="@+id/deleteImg"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             android:src="@drawable/ic_delete"
@@ -46,16 +47,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/find"
+            android:id="@+id/findImg"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:src="@drawable/ic_search"
-            app:layout_constraintBottom_toBottomOf="@+id/deleteDoc"
-            app:layout_constraintEnd_toStartOf="@+id/deleteDoc"
-            app:layout_constraintTop_toTopOf="@+id/deleteDoc" />
+            app:layout_constraintBottom_toBottomOf="@id/deleteImg"
+            app:layout_constraintEnd_toStartOf="@id/deleteImg"
+            app:layout_constraintTop_toTopOf="@id/deleteImg" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </com.google.android.material.card.MaterialCardView>

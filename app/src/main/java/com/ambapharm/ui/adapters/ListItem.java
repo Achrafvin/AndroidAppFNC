@@ -3,12 +3,10 @@ package com.ambapharm.ui.adapters;
 import androidx.recyclerview.widget.RecyclerView;
 
 public abstract class ListItem implements BindableItem {
-
     private boolean isSelected = false;
     public boolean isSelected() {
         return isSelected;
     }
-
     public void setSelected(boolean selected) {
         isSelected = selected;
     }
@@ -19,7 +17,6 @@ public abstract class ListItem implements BindableItem {
     public abstract int getType();
     @Override
     public abstract void bind(RecyclerView.ViewHolder viewHolder);
-
 
     }
 

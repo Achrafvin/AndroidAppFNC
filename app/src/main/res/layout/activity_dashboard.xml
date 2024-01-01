@@ -24,7 +24,7 @@
         android:id="@+id/textView4"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        android:text="@string/dashTitle"
+        android:text="@string/titleManageAnomalies"
         android:textSize="@dimen/_22sdp"
         android:paddingBottom="@dimen/_12sdp"
         android:textStyle="bold"
@@ -61,7 +61,7 @@
             <TextView
                 android:id="@+id/addTitle"
                 style="@style/Text"
-                android:text="@string/addNfc"
+                android:text="@string/buttonCreateNcf"
                  />
 
             <ImageView
@@ -93,7 +93,7 @@
             <TextView
                 android:id="@+id/updateTitle"
                 style="@style/Text"
-                android:text="@string/updateNfc" />
+                android:text="@string/buttonUpdateNcf" />
 
             <ImageView
                 android:id="@+id/updateIcon"

@@ -19,7 +19,7 @@
             app:menu="@menu/top_app_bar"
             app:titleTextAppearance="@style/Toolbar.TitleText"
             app:navigationIcon="@drawable/nav_icon_circle"
-            app:title="@string/username"
+            app:title="@string/labelUsername"
             app:titleTextColor="@color/violet" />
 
     </com.google.android.material.appbar.AppBarLayout>

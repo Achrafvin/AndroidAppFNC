@@ -1,7 +1,6 @@
 package com.ambapharm.ui.activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.ambapharm.databinding.ActivityDashboardBinding;
@@ -13,26 +12,31 @@ public class DashboardActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initializeActivity();
+    }
+
+    private void initializeActivity() {
         binding = ActivityDashboardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        setupToolbar();
-        setupNavigation();
+        configureToolbarAndHeader();
+        configureNavigationButtons();
+    }
 
-        //////////////////////////
+    private void configureToolbarAndHeader() {
+        setupToolbar();
         updateHeaderWithUserName();
     }
 
-
-    private void setupNavigation() {
-        binding.addNfc.setOnClickListener(view -> navigateToAddFnc());
-        binding.updateNfc.setOnClickListener(view -> navigateToUpdateFnc());
+    private void configureNavigationButtons() {
+        binding.addNfc.setOnClickListener(view -> navigateToAddFncActivity());
+        binding.updateNfc.setOnClickListener(view -> navigateToFncListActivity());
     }
 
-    private void navigateToAddFnc() {
-        startActivity(new Intent(this, AddFncActivity.class));
+    private void navigateToAddFncActivity() {
+        startActivity(new Intent(this, AddOrderNumberActivity.class));
     }
 
-    private void navigateToUpdateFnc() {
-        startActivity(new Intent(this, FncListActivity.class));
+    private void navigateToFncListActivity() {
+        startActivity(new Intent(this, UpdateFncActivity.class));
     }
 }

@@ -1,7 +1,7 @@
 package com.ambapharm.ui.adapters.items;
 
-import androidx.recyclerview.widget.RecyclerView;
 
+import androidx.recyclerview.widget.RecyclerView;
 import com.ambapharm.ui.adapters.ListItem;
 import com.ambapharm.ui.adapters.viewholders.MedicationViewHolder;
 
@@ -31,10 +31,6 @@ public class MedicationItem extends ListItem {
         return num;
     }
 
-    public void setNum(String num) {
-        this.num = num;
-    }
-
     @Override
     public int getType() {
         return TYPE_MEDICATION;
@@ -50,6 +46,7 @@ public class MedicationItem extends ListItem {
             holder.binding.cardNum.setText(getNum());
         }
     }
+
 
 
 }

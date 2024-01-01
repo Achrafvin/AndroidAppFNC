@@ -22,16 +22,8 @@ public class FncListItem extends ListItem {
         return num_fnc;
     }
 
-    public void setNum_fnc(String num_fnc) {
-        this.num_fnc = num_fnc;
-    }
-
     public String getDate() {
         return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     @Override

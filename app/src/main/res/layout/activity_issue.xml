@@ -29,7 +29,7 @@
         <TextView
             android:id="@+id/textView4"
             style="@style/AddTitle"
-            android:text="@string/issueTitle"
+            android:text="@string/titleEnterProblemType"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -50,13 +50,13 @@
             android:textSize="@dimen/_15sdp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/trans"/>
+            android:text="@string/labelCarrier"/>
         <RadioButton
             android:id="@+id/four"
             android:textSize="@dimen/_15sdp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/four"/>
+            android:text="@string/labelSupplier"/>
 
     </RadioGroup>
 
@@ -65,7 +65,7 @@
         style="@style/Button"
         android:drawableEnd="@drawable/ic_arrow_r"
         android:drawableTint="@color/white"
-        android:text="@string/next"
+        android:text="@string/buttonNext"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <include

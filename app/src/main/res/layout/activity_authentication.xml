@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:ignore="MissingConstraints"
-    tools:context=".ui.activities.AuthActivity"
+    tools:context=".ui.activities.AuthenticationActivity"
     >
 
     <androidx.constraintlayout.widget.Guideline
@@ -26,7 +26,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Hello"
+        android:text="@string/messageWelcome"
         android:textColor="@color/black"
         android:textSize="@dimen/_30sdp"
         android:textStyle="bold"
@@ -40,7 +40,7 @@
         android:layout_width="@dimen/_65sdp"
         android:layout_height="@dimen/_65sdp"
         android:layout_marginStart="@dimen/_5sdp"
-        android:contentDescription="@string/Logo"
+        android:contentDescription="@string/labelCipCode"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/emailLayout"
         app:layout_constraintEnd_toStartOf="@+id/verticalR"
@@ -54,7 +54,7 @@
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_15sdp"
-        android:hint="@string/email"
+        android:hint="@string/inputIdentifiant"
         app:layout_constraintEnd_toEndOf="@+id/verticalR"
         app:layout_constraintStart_toStartOf="@+id/verticalL"
         app:layout_constraintTop_toBottomOf="@+id/imageView">
@@ -63,7 +63,7 @@
             android:id="@+id/emailInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
+            android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -71,7 +71,7 @@
         android:id="@+id/pwdLayout"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        android:hint="@string/pwd"
+        android:hint="@string/inputPassword"
         app:layout_constraintEnd_toEndOf="@+id/verticalR"
         app:layout_constraintStart_toStartOf="@+id/verticalL"
         app:layout_constraintTop_toBottomOf="@+id/emailLayout"
@@ -89,7 +89,7 @@
 
     <Button
         android:id="@+id/login"
-        android:text="@string/login"
+        android:text="@string/buttonLogin"
         app:layout_constraintTop_toBottomOf="@+id/pwdLayout"
         style="@style/Button"
          />

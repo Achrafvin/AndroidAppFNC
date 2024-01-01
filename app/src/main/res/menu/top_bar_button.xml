@@ -5,7 +5,7 @@
     <item
         android:id="@+id/save"
         android:icon="@drawable/ic_save"
-        android:title="@string/logout"
+        android:title="@string/buttonLogout"
         app:showAsAction="ifRoom"
         />
 
