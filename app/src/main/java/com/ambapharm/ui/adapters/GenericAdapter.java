@@ -47,7 +47,7 @@ public class GenericAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.context = context;
         this.items = items;
         this.itemDeleteListener = itemDeleteListener;
-    }
+        }
 
 
     @Override
