@@ -5,14 +5,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * An abstract class representing a generic item in a RecyclerView. This class is intended
- * to be extended by specific types of items (like documents, medications, FNCs, images, etc.)
+ * to be extended by specific types of items (like documents, descriptions, FNCs, images, etc.)
  * for use in a polymorphic RecyclerView adapter. It implements the BindableItem interface
  * for binding logic and maintains a selection state.
  */
 public abstract class ListItem implements BindableItem {
     private boolean isSelected = false;
     public static final int TYPE_DOCUMENT = 0;
-    public static final int TYPE_MEDICATION = 1;
+    public static final int TYPE_DESCRIPTION = 1;
     public static final int TYPE_FNC = 2;
     public static final int TYPE_IMAGE = 3;
 
@@ -37,7 +37,7 @@ public abstract class ListItem implements BindableItem {
 
     /**
      * Gets the type of the item. This method should be overridden by subclasses to return
-     * a specific type identifier (e.g., TYPE_DOCUMENT, TYPE_MEDICATION).
+     * a specific type identifier (e.g., TYPE_DOCUMENT, TYPE_DESCRIPTION).
      *
      * @return An integer representing the type of the item.
      */

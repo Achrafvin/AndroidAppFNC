@@ -1,7 +1,6 @@
 <resources
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <style name="Base.Theme.AndroidAppFNC" parent="Theme.Material3.DayNight.NoActionBar"></style>
-    <style name="Theme.AndroidAppFNC" parent="Base.Theme.AndroidAppFNC" ></style>
+    <style name="Theme.AmbapharmApp" parent="Theme.Material3.Light.NoActionBar" ></style>
     <style name="Widget.App.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
     </style>

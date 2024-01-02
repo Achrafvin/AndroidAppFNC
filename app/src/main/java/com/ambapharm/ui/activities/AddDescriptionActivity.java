@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.ambapharm.R;
 import com.ambapharm.databinding.ActivityAddDescriptionBinding;
-import com.ambapharm.ui.adapters.items.MedicationItem;
+import com.ambapharm.ui.adapters.items.DescriptionItem;
 import com.ambapharm.ui.viewModels.AddFncViewModel;
 import com.journeyapps.barcodescanner.ScanIntentResult;
 
@@ -49,12 +49,10 @@ public class AddDescriptionActivity extends BaseActivity {
     private void initializeActivity() {
         viewModel = AddFncViewModel.getInstance();
         setupCustomeToolbar();
+        updateDescription();
         setupAutoCompleteTextView();
         setupBarcodeScannerButton();
-        updateDescription();
         onAddFnc();
-
-
     }
 
     /**
@@ -114,8 +112,9 @@ public class AddDescriptionActivity extends BaseActivity {
                 String subtitle = selectedItem;
                 String comment = binding.issueCmt2.getText().toString().trim();
                 String num = binding.quantityTxt.getText().toString().trim();
-                MedicationItem newItem = new MedicationItem(mainTitle, subtitle, comment, num);
-                viewModel.addMedicationItem(newItem);
+                Long id = getIntent().getLongExtra("EXTRA_ID",0L);
+                DescriptionItem newItem = new DescriptionItem(id,mainTitle, subtitle, comment, num);
+                viewModel.addDescriptionItem(newItem);
                 setResult(Activity.RESULT_OK);
                 finish();
             }
@@ -132,9 +131,11 @@ public class AddDescriptionActivity extends BaseActivity {
             Toast.makeText(this, "Champ requise", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (!isItemSelected || selectedItem == null || selectedItem.trim().isEmpty()) {
+        if (!isItemSelected && binding.typeProblem.getText().toString().trim().isEmpty()) {
             Toast.makeText(this, "Champ requise", Toast.LENGTH_SHORT).show();
             return false;
+        }else{
+            selectedItem = binding.typeProblem.getText().toString().trim();
         }
         if (binding.quantityTxt.getText().toString().trim().isEmpty()) {
             Toast.makeText(this, "Champ requise", Toast.LENGTH_SHORT).show();
@@ -144,7 +145,6 @@ public class AddDescriptionActivity extends BaseActivity {
             Toast.makeText(this, "Champ requise", Toast.LENGTH_SHORT).show();
             return false;
         }
-
         return true;
     }
 

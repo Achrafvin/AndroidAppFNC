@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel;
 
 import com.ambapharm.ui.adapters.ListItem;
 import com.ambapharm.ui.adapters.items.DocumentItem;
-import com.ambapharm.ui.adapters.items.ImageDocItem;
-import com.ambapharm.ui.adapters.items.MedicationItem;
+import com.ambapharm.ui.adapters.items.ImageItem;
+import com.ambapharm.ui.adapters.items.DescriptionItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +16,14 @@ import java.util.List;
 /**
  * ViewModel for managing data in the AddFncActivity.
  * This ViewModel stores and handles operations on a list of ListItem objects, which represent
- * different types of items (medications, documents, images) related to FNCs.
+ * different types of items (descriptions, documents, images) related to FNCs.
  */
 public class AddFncViewModel extends ViewModel {
 
-    private MutableLiveData<List<ListItem>> items = new MutableLiveData<>();
+    private final MutableLiveData<List<ListItem>> items = new MutableLiveData<>();
     private static AddFncViewModel instance;
 
+    private Long nextDescriptionItemId;
 
     /**
      * Private constructor to enforce singleton pattern.
@@ -69,25 +70,46 @@ public class AddFncViewModel extends ViewModel {
      * would typically be replaced with data from a database or network call.
      */
     private void loadData() {
+        long maxId = 0;
         List<ListItem> itemList = new ArrayList<>();
-        itemList.add(new MedicationItem("Medication 1","Description 1","MoreInfo 1","20"));
-        itemList.add(new MedicationItem("Medication 2","Description 2","MoreInfo 2","22"));
-        itemList.add(new MedicationItem("Medication 3","Description 3","MoreInfo 3","24"));
+        itemList.add(new DescriptionItem(1L, "Medication 1","Description 1","MoreInfo 1","20"));
+        itemList.add(new DescriptionItem(2L, "Medication 2","Description 2","MoreInfo 2","22"));
+        itemList.add(new DescriptionItem(3L, "Medication 3","Description 3","MoreInfo 3","24"));
+        for (ListItem item : itemList) {
+            if (item instanceof DescriptionItem) {
+                maxId = Math.max(maxId, ((DescriptionItem) item).getId());
+            }
+        }
+        nextDescriptionItemId = maxId + 1;
         items.setValue(itemList);
     }
 
 
     /**
-     * Adds a medication item to the list.
+     * Adds a description item to the list.
      *
-     * @param item The MedicationItem to be added to the list.
+     * @param newItem The DescriptionItem to be added to the list.
      */
-    public void addMedicationItem(MedicationItem item) {
+    public void addDescriptionItem(DescriptionItem newItem) {
+
         List<ListItem> currentItems = items.getValue();
         if (currentItems == null) {
             currentItems = new ArrayList<>();
         }
-        currentItems.add(new MedicationItem(item.getMainTitle(), item.getSubtitle(), item.getComment(), item.getNum()));
+
+        boolean itemExists = false;
+        for (int i = 0; i < currentItems.size(); i++) {
+            ListItem item = currentItems.get(i);
+            if (item instanceof DescriptionItem && ((DescriptionItem) item).getId().equals(newItem.getId())) {
+                currentItems.set(i, newItem);
+                itemExists = true;
+                break;
+            }
+        }
+        if (!itemExists) {
+            newItem.setId(nextDescriptionItemId++);
+            currentItems.add(newItem);
+        }
         items.setValue(currentItems);
     }
 
@@ -105,7 +127,7 @@ public class AddFncViewModel extends ViewModel {
         if(filePath.contains(".pdf"))
             currentItems.add(new DocumentItem(title, filePath));
         else
-            currentItems.add(new ImageDocItem(title, filePath));
+            currentItems.add(new ImageItem(title, filePath));
         items.setValue(currentItems);
     }
 

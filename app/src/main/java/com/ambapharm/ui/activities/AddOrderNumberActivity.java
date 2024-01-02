@@ -40,7 +40,7 @@ public class AddOrderNumberActivity extends BaseActivity {
         setContentView(binding.getRoot());
 
         configureToolbar();
-        initializeAutoComplete();
+        setupAutoCompleteTextView();
         setupNextIssueButtonListener();
     }
 
@@ -55,7 +55,7 @@ public class AddOrderNumberActivity extends BaseActivity {
     /**
      * Initializes the AutoCompleteTextView for selecting an existing order number.
      */
-    private void initializeAutoComplete() {
+    private void setupAutoCompleteTextView() {
         String[] items = getResources().getStringArray(R.array.planets_array);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, items);
         binding.auto.setAdapter(adapter);

@@ -3,16 +3,27 @@ package com.ambapharm.ui.adapters.items;
 
 import androidx.recyclerview.widget.RecyclerView;
 import com.ambapharm.ui.adapters.ListItem;
-import com.ambapharm.ui.adapters.viewholders.MedicationViewHolder;
+import com.ambapharm.ui.adapters.viewholders.DescriptionViewHolder;
 
-public class MedicationItem extends ListItem {
+public class DescriptionItem extends ListItem {
+
+    private Long id;
     private String mainTitle, subtitle, comment,num;
 
-    public MedicationItem(String mainTitle, String subtitle, String comment, String num) {
+    public DescriptionItem(Long id, String mainTitle, String subtitle, String comment, String num) {
+        this.id = id;
         this.mainTitle = mainTitle;
         this.subtitle = subtitle;
         this.comment = comment;
         this.num = num;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getMainTitle() {
@@ -33,13 +44,13 @@ public class MedicationItem extends ListItem {
 
     @Override
     public int getType() {
-        return TYPE_MEDICATION;
+        return TYPE_DESCRIPTION;
     }
 
     @Override
     public void bind(RecyclerView.ViewHolder viewHolder) {
-        if(viewHolder instanceof MedicationViewHolder){
-            MedicationViewHolder holder = (MedicationViewHolder) viewHolder;
+        if(viewHolder instanceof DescriptionViewHolder){
+            DescriptionViewHolder holder = (DescriptionViewHolder) viewHolder;
             holder.binding.mainTitle.setText(getMainTitle());
             holder.binding.subtitle.setText(getSubtitle());
             holder.binding.cardCmt.setText(getComment());

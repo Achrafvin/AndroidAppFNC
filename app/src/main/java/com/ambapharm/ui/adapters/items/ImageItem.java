@@ -9,7 +9,7 @@ import com.ambapharm.ui.adapters.viewholders.ImageDocViewHolder;
  * Represents an image document item used in a RecyclerView. This class extends ListItem and
  * includes the title and image path for an image document, facilitating its display in the UI.
  */
-public class ImageDocItem extends ListItem {
+public class ImageItem extends ListItem {
     private String title;
     private String imagePath;
 
@@ -19,7 +19,7 @@ public class ImageDocItem extends ListItem {
      * @param title     The title of the image document.
      * @param imagePath The path where the image document is stored.
      */
-    public ImageDocItem(String title, String imagePath) {
+    public ImageItem(String title, String imagePath) {
         this.title = title;
         this.imagePath = imagePath;
     }

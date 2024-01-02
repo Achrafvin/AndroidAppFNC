@@ -15,8 +15,8 @@ import com.ambapharm.ui.adapters.clickListners.OnDeleteClickListener;
 import com.ambapharm.ui.adapters.clickListners.OnEditClickListener;
 import com.ambapharm.ui.adapters.clickListners.OnViewClickListener;
 import com.ambapharm.ui.adapters.items.DocumentItem;
-import com.ambapharm.ui.adapters.items.ImageDocItem;
-import com.ambapharm.ui.adapters.items.MedicationItem;
+import com.ambapharm.ui.adapters.items.ImageItem;
+import com.ambapharm.ui.adapters.items.DescriptionItem;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * A generic RecyclerView adapter that handles multiple types of items including images, documents,
- * and medications. This adapter is capable of binding different types of items to their respective
+ * and descriptions. This adapter is capable of binding different types of items to their respective
  * ViewHolders and managing user interactions like viewing, editing, and deleting items.
  */
 public class GenericAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnViewClickListener, OnDeleteClickListener, OnEditClickListener {
@@ -100,8 +100,8 @@ public class GenericAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onViewClick(int position) {
         if (items != null && position < items.size()) {
             ListItem item = items.get(position);
-            if (item instanceof ImageDocItem) {
-                String imagePath = ((ImageDocItem) item).getImagePath();
+            if (item instanceof ImageItem) {
+                String imagePath = ((ImageItem) item).getImagePath();
                 openImageActivity(imagePath);
             } else if (item instanceof DocumentItem) {
                 String documentPath = ((DocumentItem) item).getFilePath();
@@ -137,8 +137,8 @@ public class GenericAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onDeleteClick(int position) {
         if (position >= 0 && position < items.size()) {
             ListItem item = items.get(position);
-            if (item instanceof ImageDocItem) {
-                String imagePath = ((ImageDocItem) item).getImagePath();
+            if (item instanceof ImageItem) {
+                String imagePath = ((ImageItem) item).getImagePath();
                 deleteImageFile(imagePath);
             }else if (item instanceof DocumentItem) {
                 String documentPath = ((DocumentItem) item).getFilePath();
@@ -160,13 +160,14 @@ public class GenericAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onEditClick(int position) {
         ListItem item = getItem(position);
-        if (item instanceof MedicationItem) {
-            MedicationItem medicationItem = (MedicationItem) item;
+        if (item instanceof DescriptionItem) {
+            DescriptionItem descriptionItem = (DescriptionItem) item;
             Intent intent = new Intent(context, AddDescriptionActivity.class);
-            intent.putExtra("EXTRA_TITLE", medicationItem.getMainTitle());
-            intent.putExtra("EXTRA_SUBTITLE", medicationItem.getSubtitle());
-            intent.putExtra("EXTRA_COMMENT", medicationItem.getComment());
-            intent.putExtra("EXTRA_NUM", medicationItem.getNum());
+            intent.putExtra("EXTRA_ID", descriptionItem.getId());
+            intent.putExtra("EXTRA_TITLE", descriptionItem.getMainTitle());
+            intent.putExtra("EXTRA_SUBTITLE", descriptionItem.getSubtitle());
+            intent.putExtra("EXTRA_COMMENT", descriptionItem.getComment());
+            intent.putExtra("EXTRA_NUM", descriptionItem.getNum());
             context.startActivity(intent);
         }
     }

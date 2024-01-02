@@ -14,6 +14,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "AndroidAppFNC"
+rootProject.name = "AmbapharmApp"
 include(":app")
  

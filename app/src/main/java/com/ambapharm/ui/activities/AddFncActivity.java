@@ -192,7 +192,7 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
                 result -> {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                         Uri imageUri = result.getData().getData();
-                        saveToStorage(imageUri);
+                        saveToStorage(imageUri,"gallery");
                     }
                 }
         );
@@ -201,7 +201,7 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
                 result -> {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         if (cameraImageUri != null) {
-                            saveToStorage(cameraImageUri);
+                            saveToStorage(cameraImageUri,"camera");
                         } else {
                             Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
                         }
@@ -215,7 +215,7 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
                 result -> {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                         Uri documentUri = result.getData().getData();
-                        saveToStorage(documentUri);
+                        saveToStorage(documentUri,"document");
                     }
                 }
         );
@@ -236,8 +236,14 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
      *
      * @param imageUri The URI of the selected image or document.
      */
-    private void saveToStorage(Uri imageUri) {
-        String fileName = getFileName(imageUri);
+    private void saveToStorage(Uri imageUri,String source) {
+
+        String fileName;
+        if ("gallery".equals(source)) {
+            fileName = createGalleryImageFileName();
+        } else {
+            fileName = getFileName(imageUri);
+        }
         File file = new File(getFilesDir(), fileName);
         try (InputStream in = getContentResolver().openInputStream(imageUri);
              OutputStream out = new FileOutputStream(file)) {
@@ -250,6 +256,12 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
         } catch (IOException e) {
             Log.e("AddFncActivity", "Error saving document", e);
         }
+    }
+
+
+    private String createGalleryImageFileName() {
+        String timeStamp = new SimpleDateFormat("yyMMddHHmmss", Locale.getDefault()).format(new Date());
+        return "gallery_" + timeStamp + ".jpg";
     }
 
     /**
@@ -336,8 +348,8 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
     }
 
     private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat("MMdd", Locale.getDefault()).format(new Date());
-        String imageFileName = "camera_" + timeStamp + "_";
+        String timeStamp = new SimpleDateFormat("yyMMddHHmmss", Locale.getDefault()).format(new Date());
+        String imageFileName = "camera_" + timeStamp;
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         return File.createTempFile(imageFileName,".jpg",storageDir);
     }
