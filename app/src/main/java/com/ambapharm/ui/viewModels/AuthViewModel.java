@@ -63,7 +63,7 @@ public class AuthViewModel extends ViewModel {
      * Attempts to log in a user with the provided email and password.
      * It queries the UserDao for a user with the given credentials and updates the login status and user data accordingly.
      *
-     * @param email    The user's email.
+     * @param identity    The user's email.
      * @param password The user's password.
      */
     public void login(String identity, String password) {
