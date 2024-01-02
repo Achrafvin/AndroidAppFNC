@@ -19,7 +19,7 @@ public interface UserDao {
     User findByName(String name);
 
     @Query("SELECT * FROM User WHERE email = :email AND password = :password")
-    User findByEmailAndPassword(String email, String password);
+    User findByIdentityAndPassword(String email, String password);
 
     @Query("SELECT * FROM User WHERE id = :id")
     User findById(Long id);

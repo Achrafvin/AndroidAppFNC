@@ -4,22 +4,23 @@ import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.ambapharm.R;
@@ -30,35 +31,57 @@ import com.ambapharm.ui.viewModels.AddFncViewModel;
 import com.ambapharm.ui.adapters.GenericAdapter;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+
+/**
+ * Activity for managing the addition of various elements to a pharmaceutical product anomaly report (FNC).
+ * This includes handling descriptions, images, documents, and overall comments for the FNC.
+ * The class supports operations like selecting images from gallery or taking new ones,
+ * picking documents, and adding detailed descriptions.
+ */
 public class AddFncActivity extends BaseActivity implements GenericAdapter.OnItemDeleteListener {
 
     private ActivityAddFncBinding binding;
     private AddFncViewModel viewModel;
     private GenericAdapter adapter;
     private String toolbarTitle;
-
     private ActivityResultLauncher<Intent> galleryActivityResultLauncher;
     private ActivityResultLauncher<Intent> cameraActivityResultLauncher;
     private ActivityResultLauncher<Intent> documentPickerActivityResultLauncher;
-
+    private ActivityResultLauncher<Intent> addDescriptionActivityResultLauncher;
     private static final float ROTATION_START = 0f;
     private static final float ROTATION_END = 45f;
+    private Uri cameraImageUri;
 
+
+    /**
+     * Called when the activity is starting. This is where most initialization should go.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously
+     *                           being shut down then this Bundle contains the data it most
+     *                           recently supplied in onSaveInstanceState(Bundle).
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initializeActivity();
     }
 
+    /**
+     * Initializes the activity's UI components and sets up the necessary data.
+     */
     private void initializeActivity() {
         binding = ActivityAddFncBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        viewModel = new ViewModelProvider(this).get(AddFncViewModel.class);
+        viewModel = AddFncViewModel.getInstance();
         extractIntentData();
         setFncTitleForToolbar();
         initializeRecyclerView();
@@ -66,16 +89,24 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
         setupFloatingActionButtons();
         setupButtonListeners();
         initializeResultLauncher();
+        viewModel.initializeData();
+
     }
+
+
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (binding.includedToolbar.fabPj.getVisibility() == View.VISIBLE) {
+        if (binding.includedToolbar.buttonFile.getVisibility() == View.VISIBLE) {
             toggleFabMenu(false);
         }
+
     }
 
+    /**
+     * Sets the title for the toolbar based on FNC data.
+     */
     private void setFncTitleForToolbar() {
         setSupportActionBar(binding.includedToolbar.appBarLayout.topAppBar);
         binding.includedToolbar.appBarLayout.topAppBar.setTitle(
@@ -87,12 +118,12 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.top_app_bar, menu);
-        configureMenuItem(menu.findItem(R.id.headerIcon), R.drawable.ic_save);
+        configureMenuItem(menu.findItem(R.id.headerIcon));
         return true;
     }
 
-    private void configureMenuItem(MenuItem item, int iconResId) {
-        item.setIcon(iconResId);
+    private void configureMenuItem(MenuItem item) {
+        item.setIcon(R.drawable.ic_save);
         item.setTitle(R.string.buttonSave);
     }
 
@@ -106,6 +137,9 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Initializes the RecyclerView used for displaying items (images, documents, etc.) in the FNC report.
+     */
     private void initializeRecyclerView() {
         adapter = new GenericAdapter(this, new ArrayList<>(),  this);
         binding.cardView.setLayoutManager(new LinearLayoutManager(this));
@@ -117,13 +151,10 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
     }
 
 
-
-
-
     private void setupFloatingActionButtons() {
         binding.includedToolbar.fabMenu.setOnClickListener(view -> {
             hideKeyboard();
-            toggleFabMenu(binding.includedToolbar.fabPj.getVisibility() == View.GONE);
+            toggleFabMenu(binding.includedToolbar.buttonFile.getVisibility() == View.GONE);
         });
     }
 
@@ -133,9 +164,9 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
     }
 
     private void setFabVisibility(int visibility) {
-        binding.includedToolbar.fabPj.setVisibility(visibility);
-        binding.includedToolbar.fabCam.setVisibility(visibility);
-        binding.includedToolbar.fabLr.setVisibility(visibility);
+        binding.includedToolbar.buttonFile.setVisibility(visibility);
+        binding.includedToolbar.buttonCamere.setVisibility(visibility);
+        binding.includedToolbar.buttonDescription.setVisibility(visibility);
         binding.overlay.setVisibility(visibility);
         binding.includedToolbar.pjText.setVisibility(visibility);
         binding.includedToolbar.caText.setVisibility(visibility);
@@ -150,9 +181,9 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
     }
 
     private void setupButtonListeners() {
-        binding.includedToolbar.fabLr.setOnClickListener(v -> navigateToAddLigneRActivity());
-        binding.includedToolbar.fabCam.setOnClickListener(v -> openCameraOptionsPopup());
-        binding.includedToolbar.fabPj.setOnClickListener(v -> openDocumentOptionsPopup());
+        binding.includedToolbar.buttonDescription.setOnClickListener(v -> navigateToAddDescriptionActivity());
+        binding.includedToolbar.buttonCamere.setOnClickListener(v -> openCameraOptionsPopup());
+        binding.includedToolbar.buttonFile.setOnClickListener(v -> openDocumentOptionsPopup());
     }
 
     private void initializeResultLauncher() {
@@ -161,45 +192,51 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
                 result -> {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                         Uri imageUri = result.getData().getData();
-                        saveImageToStorage(imageUri);
+                        saveToStorage(imageUri);
                     }
                 }
         );
         cameraActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
-                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                        Bundle extras = result.getData().getExtras();
-                        Bitmap imageBitmap = (Bitmap) extras.get("data");
-                        saveImageToStorage(imageBitmap);
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        if (cameraImageUri != null) {
+                            saveToStorage(cameraImageUri);
+                        } else {
+                            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
         );
+
 
         documentPickerActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                         Uri documentUri = result.getData().getData();
-                        saveDocumentToStorage(documentUri);
+                        saveToStorage(documentUri);
                     }
                 }
         );
+
+        addDescriptionActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                        viewModel.getItems().observe(this, this::updateItemList);
+                    }
+                }
+        );
+
     }
 
-
-    private void saveImageToStorage(Bitmap bitmap) {
-        String filename = "ambapharm_" + System.currentTimeMillis() + ".jpg";
-        try (FileOutputStream out = openFileOutput(filename, Context.MODE_PRIVATE)) {
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-            String imagePath = getFilesDir() + "/" + filename;
-            viewModel.addImageFromCamera(imagePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void saveImageToStorage(Uri imageUri) {
+    /**
+     * Handles the selection and addition of files (images or documents) to the FNC report.
+     *
+     * @param imageUri The URI of the selected image or document.
+     */
+    private void saveToStorage(Uri imageUri) {
         String fileName = getFileName(imageUri);
         File file = new File(getFilesDir(), fileName);
         try (InputStream in = getContentResolver().openInputStream(imageUri);
@@ -209,28 +246,18 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
             while ((read = in.read(buffer)) != -1) {
                 out.write(buffer, 0, read);
             }
-            viewModel.addImageFromGallery(fileName, file.getAbsolutePath());
+            viewModel.addDocAndImage(fileName, file.getAbsolutePath());
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e("AddFncActivity", "Error saving document", e);
         }
     }
 
-    private void saveDocumentToStorage(Uri documentUri) {
-        String fileName = getFileName(documentUri);
-        File file = new File(getFilesDir(), fileName);
-        try (InputStream in = getContentResolver().openInputStream(documentUri);
-             OutputStream out = new FileOutputStream(file)) {
-            byte[] buffer = new byte[1024];
-            int read;
-            while ((read = in.read(buffer)) != -1) {
-                out.write(buffer, 0, read);
-            }
-            viewModel.addDocumentItem(fileName, file.getAbsolutePath());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
+    /**
+     * Extracts the file name from the given URI.
+     *
+     * @param uri The URI of the file.
+     * @return The file name extracted from the URI.
+     */
     @SuppressLint("Range")
     private String getFileName(Uri uri) {
         String result = null;
@@ -251,10 +278,9 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
         return result;
     }
 
-
-
-    private void navigateToAddLigneRActivity() {
-        startActivity(new Intent(this, AddDescriptionActivity.class));
+    private void navigateToAddDescriptionActivity() {
+        Intent intent = new Intent(this, AddDescriptionActivity.class);
+        addDescriptionActivityResultLauncher.launch(intent);
     }
 
     private void openCameraOptionsPopup() {
@@ -282,7 +308,6 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
             openDocument();
             dialog.dismiss();
         });
-
         dialog.show();
     }
 
@@ -294,9 +319,29 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
     private void openCamera() {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (cameraIntent.resolveActivity(getPackageManager()) != null) {
-            cameraActivityResultLauncher.launch(cameraIntent);
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException e) {
+                Log.e("AddFncActivity", "Error creating image", e);
+            }
+            if (photoFile != null) {
+                cameraImageUri = FileProvider.getUriForFile(this,
+                        "com.ambapharm.app",
+                        photoFile);
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, cameraImageUri);
+                cameraActivityResultLauncher.launch(cameraIntent);
+            }
         }
     }
+
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("MMdd", Locale.getDefault()).format(new Date());
+        String imageFileName = "camera_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        return File.createTempFile(imageFileName,".jpg",storageDir);
+    }
+
 
     private void openDocument() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -306,13 +351,28 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
         documentPickerActivityResultLauncher.launch(intent);
     }
 
+
+    /**
+     * Observes changes in the ViewModel and updates UI components accordingly.
+     */
     private void observeViewModel() {
-        viewModel.getItems().observe(this, this::updateItemList);
-        toggleContentVisibility();
+        viewModel.getItems().observe(this, items -> {
+            updateItemList(items);
+            toggleContentVisibility();
+        });
     }
 
+
+    /**
+     * Updates the list of items in the RecyclerView adapter.
+     *
+     * @param items List of items to display in the RecyclerView.
+     */
     private void updateItemList(List<ListItem> items) {
-        adapter.setItems(items);
+        if (items != null) {
+            adapter.setItems(items);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     private void toggleContentVisibility() {
@@ -328,10 +388,27 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
 
     private void saveAndNavigateToDashboard() {
         hideKeyboard();
-        startActivity(new Intent(this, DashboardActivity.class));
-        finish();
+        if(validateInput()) {
+            startActivity(new Intent(this, SuccessActivity.class));
+            finish();
+        }
+
     }
 
+    private boolean validateInput() {
+        if (binding.issueCmt.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "Champ requise", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+
+    /**
+     * Called when an item in the list is requested to be deleted.
+     *
+     * @param position The position of the item in the list.
+     */
     @Override
     public void onDeleteItem(int position) {
         new AlertDialog.Builder(this)
@@ -344,6 +421,7 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
                 })
                 .setNegativeButton("Annuler", null)
                 .show();
+
     }
 
 }

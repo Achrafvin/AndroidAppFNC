@@ -42,14 +42,14 @@
         android:layout_marginStart="@dimen/_5sdp"
         android:contentDescription="@string/labelCipCode"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/emailLayout"
+        app:layout_constraintBottom_toTopOf="@+id/identityLayout"
         app:layout_constraintEnd_toStartOf="@+id/verticalR"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toTopOf="@+id/horizontalT"
         app:srcCompat="@drawable/im_logo" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/emailLayout"
+        android:id="@+id/identityLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/emailInput"
+            android:id="@+id/identityInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text" />
@@ -74,7 +74,7 @@
         android:hint="@string/inputPassword"
         app:layout_constraintEnd_toEndOf="@+id/verticalR"
         app:layout_constraintStart_toStartOf="@+id/verticalL"
-        app:layout_constraintTop_toBottomOf="@+id/emailLayout"
+        app:layout_constraintTop_toBottomOf="@+id/identityLayout"
         app:passwordToggleEnabled="true"
         android:layout_marginTop="@dimen/_15sdp"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">

@@ -9,11 +9,14 @@
     <string name="labelSelectOption">Choisir une option</string>
     <string name="buttonLogout">Déconnecté</string>
     <string name="titleCreateNcf">Créer une nouvelle FNC</string>
-    <string name="titleManageAnomalies">Gérer les <font color='#6200ea'>anomalies</font> détectées</string>
+    <string name="titleManageAnomalies">Gérer les <font color='#6200ea'>anomalies</font> détectées
+    </string>
     <string name="titleEnterOrderNumber">Saisir le
-        <font color='#6200ea'>numéro de commande</font></string>
+        <font color='#6200ea'>numéro de commande</font>
+    </string>
     <string name="titleEnterProblemType">Saisir le
-        <font color='#6200ea'>type de problème</font></string>
+        <font color='#6200ea'>type de problème</font>
+    </string>
     <string name="buttonCreateNcf">Créer une nouvelle FNC</string>
     <string name="buttonUpdateNcf">Mettre à jour la FNC</string>
     <string name="labelOrderNumber">Numéro de commande</string>
@@ -51,7 +54,6 @@
     <string name="promptSelectDate">Cliquez ici pour sélectionner une date</string>
 
 
-
     <!--Dummy Strings Can replace with real content from Database-->
     <string-array name="planets_array">
         <item>JD01634686900</item>
@@ -72,5 +74,7 @@
         <item>Produit.s manquant.s dans colis intact</item>
         <item>Produit.s en +</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

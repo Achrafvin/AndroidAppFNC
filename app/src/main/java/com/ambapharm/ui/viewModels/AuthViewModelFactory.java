@@ -14,7 +14,7 @@ public class AuthViewModelFactory implements ViewModelProvider.Factory{
 
     @NonNull
     @Override
-    public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+    public <T extends ViewModel> T create( Class<T> modelClass) {
         if (modelClass.isAssignableFrom(AuthViewModel.class)) {
             return (T) new AuthViewModel(userDao);
         }

@@ -19,11 +19,25 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
+
+/**
+ * Activity for handling user authentication via identity (Identity and password) or barcode.
+ * If the user is already logged in, they are redirected to the dashboard. Otherwise, the user can
+ * log in using their credentials or scan a barcode for authentication.
+ */
 public class AuthenticationActivity extends BaseActivity {
 
     private ActivityAuthenticationBinding binding;
     private AuthViewModel viewModel;
 
+
+    /**
+     * Called when the activity is starting. This method sets up the activity and database, and observes the ViewModel.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously
+     *                           being shut down then this Bundle contains the data it most
+     *                           recently supplied in onSaveInstanceState(Bundle).
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +46,10 @@ public class AuthenticationActivity extends BaseActivity {
         observeViewModel();
     }
 
+
+    /**
+     * Initializes the activity by setting up the login button, text watchers, and checking if the user is logged in.
+     */
     private void initializeActivity() {
         if (isUserLoggedIn()) {
             navigateToDashboard();
@@ -46,17 +64,31 @@ public class AuthenticationActivity extends BaseActivity {
         binding.imageView.setOnClickListener(v -> scanBarcode());
     }
 
+    /**
+     * Checks if the user is already logged in.
+     *
+     * @return true if the user is logged in, false otherwise.
+     */
     private boolean isUserLoggedIn() {
         SharedPreferences sharedPreferences = getSharedPreferences("UserPref", MODE_PRIVATE);
         return sharedPreferences.getBoolean("isLoggedIn", false);
     }
 
+
+    /**
+     * Navigates to the DashboardActivity.
+     */
     private void navigateToDashboard() {
         Intent intent = new Intent(AuthenticationActivity.this, DashboardActivity.class);
         startActivity(intent);
         finish();
     }
 
+    /**
+     * Saves the logged-in user's information to SharedPreferences.
+     *
+     * @param user The user object containing the user's information.
+     */
     private void saveUserInfo(User user) {
         SharedPreferences sharedPreferences = getSharedPreferences("UserPref", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -65,6 +97,10 @@ public class AuthenticationActivity extends BaseActivity {
         editor.apply();
     }
 
+
+    /**
+     * Initializes the in-memory database and sets up the ViewModel.
+     */
     private void initializeDatabase() {
         AppDatabase db = Room.inMemoryDatabaseBuilder(getApplicationContext(), AppDatabase.class).build();
         UserDao userDao = db.userDao();
@@ -84,7 +120,9 @@ public class AuthenticationActivity extends BaseActivity {
         viewModel = new ViewModelProvider(this, factory).get(AuthViewModel.class);
     }
 
-
+    /**
+     * Observes changes in the ViewModel for user login status and login error messages.
+     */
     private void observeViewModel() {
         viewModel.getLoggedInUser().observe(this, user -> {
             if (user != null) {
@@ -97,33 +135,57 @@ public class AuthenticationActivity extends BaseActivity {
                 Toast.makeText(this, errorMsg, Toast.LENGTH_SHORT).show());
     }
 
+
+    /**
+     * Sets up the login button with a click listener to process user login.
+     */
     private void setupLoginButton() {
         binding.login.setOnClickListener(v -> {
-            String email = Objects.requireNonNull(binding.emailInput.getText()).toString();
+            String identity = Objects.requireNonNull(binding.identityInput.getText()).toString();
             String password = Objects.requireNonNull(binding.passwordInput.getText()).toString();
-            if (validateForm(email, password)) {
-                viewModel.login(email, password);
+            if (validateForm(identity, password)) {
+                viewModel.login(identity, password);
             }
         });
     }
 
-    private boolean validateForm(String email, String password) {
+    /**
+     * Validates the login form input.
+     *
+     * @param identity    The identity entered by the user.
+     * @param password The password entered by the user.
+     * @return true if the form is valid, false otherwise.
+     */
+    private boolean validateForm(String identity, String password) {
         boolean isValid = true;
-        isValid = validateEmail(email) && isValid;
+        isValid = validateIdentity(identity) && isValid;
         isValid = validatePassword(password) && isValid;
         return isValid;
     }
 
-    private boolean validateEmail(String email) {
-        if (email.isEmpty()) {
-            binding.emailLayout.setError("Identifiant requise");
+    /**
+     * Validates the email input.
+     *
+     * @param identity The email entered by the user.
+     * @return true if the email is valid, false otherwise.
+     */
+    private boolean validateIdentity(String identity) {
+        if (identity.isEmpty()) {
+            binding.identityLayout.setError("Identifiant requise");
             return false;
         }else {
-            binding.emailLayout.setError(null);
+            binding.identityLayout.setError(null);
             return true;
         }
     }
 
+
+    /**
+     * Validates the password input.
+     *
+     * @param password The password entered by the user.
+     * @return true if the password is valid, false otherwise.
+     */
     private boolean validatePassword(String password) {
         if (password.isEmpty()) {
             binding.pwdLayout.setError("Mot de passe requis");
@@ -134,13 +196,26 @@ public class AuthenticationActivity extends BaseActivity {
         }
     }
 
+
+    /**
+     * Sets up text watchers for the email and password input fields.
+     */
     private void setupTextWatchers() {
-        binding.emailInput.addTextChangedListener(new GenericTextWatcher(binding.emailLayout));
+        binding.identityInput.addTextChangedListener(new GenericTextWatcher(binding.identityLayout));
         binding.passwordInput.addTextChangedListener(new GenericTextWatcher(binding.pwdLayout));
     }
 
-    private record GenericTextWatcher(TextInputLayout layout) implements TextWatcher {
 
+    /**
+     * A TextWatcher class for handling text changes in input fields.
+     */
+    private static class GenericTextWatcher implements TextWatcher {
+
+        private final TextInputLayout layout;
+
+        public GenericTextWatcher(TextInputLayout layout) {
+            this.layout = layout;
+        }
         @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }

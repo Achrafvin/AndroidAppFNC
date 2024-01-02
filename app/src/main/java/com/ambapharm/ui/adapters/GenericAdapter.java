@@ -17,10 +17,17 @@ import com.ambapharm.ui.adapters.clickListners.OnViewClickListener;
 import com.ambapharm.ui.adapters.items.DocumentItem;
 import com.ambapharm.ui.adapters.items.ImageDocItem;
 import com.ambapharm.ui.adapters.items.MedicationItem;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.List;
 
+
+/**
+ * A generic RecyclerView adapter that handles multiple types of items including images, documents,
+ * and medications. This adapter is capable of binding different types of items to their respective
+ * ViewHolders and managing user interactions like viewing, editing, and deleting items.
+ */
 public class GenericAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnViewClickListener, OnDeleteClickListener, OnEditClickListener {
     private List<ListItem> items;
     private int selectedItemPosition = -1;
@@ -29,24 +36,35 @@ public class GenericAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private final OnItemDeleteListener itemDeleteListener;
 
 
+    /**
+     * Constructor for GenericAdapter.
+     *
+     * @param context            The context in which the adapter is operating.
+     * @param items              The list of ListItem objects to be managed by the adapter.
+     * @param itemDeleteListener The listener for item deletion events.
+     */
     public GenericAdapter(Context context,List<ListItem> items,OnItemDeleteListener itemDeleteListener) {
         this.context = context;
         this.items = items;
         this.itemDeleteListener = itemDeleteListener;
     }
 
+
     @Override
     public int getItemViewType(int position) {
         return items.get(position).getType();
     }
 
+    @NotNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         return ViewHolderFactory.createViewHolder(parent, viewType, this,this,this);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NotNull RecyclerView.ViewHolder holder, int position) {
+
         BindableItem item = items.get(position);
         item.bind(holder);
         holder.itemView.setOnClickListener(v->{
@@ -54,12 +72,17 @@ public class GenericAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     }
 
-
     @Override
     public int getItemCount() {
         return items != null ? items.size() : 0;
     }
 
+
+    /**
+     * Updates the list of items managed by the adapter and refreshes the RecyclerView.
+     *
+     * @param newItems The new list of items to display.
+     */
     @SuppressLint("NotifyDataSetChanged")
     public void setItems(List<ListItem> newItems) {
         this.items = newItems;
@@ -87,13 +110,22 @@ public class GenericAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
+    /**
+     * Opens the DocumentViewerActivity for viewing a specific document.
+     *
+     * @param documentPath The file path of the document to be viewed.
+     */
     private void openDocumentActivity(String documentPath) {
         Intent intent = new Intent(context, DocumentViewerActivity.class);
         intent.putExtra("documentPath", documentPath);
         context.startActivity(intent);
     }
 
-
+    /**
+     * Opens the ImageViewerActivity for viewing a specific image.
+     *
+     * @param imagePath The file path of the image to be viewed.
+     */
     private void openImageActivity(String imagePath) {
         Intent intent = new Intent(context, ImageViewerActivity.class);
         intent.putExtra("imagePath", imagePath);
@@ -143,6 +175,11 @@ public class GenericAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         void onDeleteItem(int position);
     }
 
+    /**
+     * Sets the currently selected item in the adapter.
+     *
+     * @param position The position of the item to be selected.
+     */
     public void setSelectedItem(int position) {
         if (selectedItemPosition >= 0 && selectedItemPosition < items.size()) {
             items.get(selectedItemPosition).setSelected(false);

@@ -2,10 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-feature
-            android:name="android.hardware.camera"
-            android:required="true"/>
-
+    <uses-feature android:name="android.hardware.camera" android:required="true"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
@@ -22,6 +19,15 @@
             android:theme="@style/Base.Theme.AndroidAppFNC"
             android:usesCleartextTraffic="true"
             tools:targetApi="31">
+        <provider
+                android:name="androidx.core.content.FileProvider"
+                android:authorities="com.ambapharm.app"
+                android:exported="false"
+                android:grantUriPermissions="true">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/file_paths" />
+        </provider>
         <activity
                 android:name=".ui.activities.DocumentViewerActivity"
                 android:exported="false"/>
@@ -30,6 +36,11 @@
                 android:exported="false"/>
         <activity
                 android:name=".ui.activities.AddDescriptionActivity"
+                android:exported="false"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+        <activity
+                android:name=".ui.activities.SuccessActivity"
                 android:exported="false"
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>

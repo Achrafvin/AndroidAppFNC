@@ -64,7 +64,6 @@
         app:layout_constraintStart_toStartOf="@+id/verticalL"
         app:layout_constraintTop_toBottomOf="@+id/divider">
 
-        <!-- Your dynamic card views go here -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/fnc_card_empty"
             style="@style/Card"
@@ -75,7 +74,6 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
                 <TextView
                     android:id="@+id/fnc_title"
                     style="@style/Text"

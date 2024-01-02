@@ -17,18 +17,36 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class UpdateFncActivity extends BaseActivity implements GenericAdapter.OnItemDeleteListener {
+
+
+/**
+ * UpdateFncActivity displays a list of all created FNCs. It allows users to select a date range
+ * to filter and view FNCs within that range. This activity extends BaseActivity and uses a RecyclerView
+ * to display the list of FNCs.
+ */
+public class UpdateFncActivity extends BaseActivity{
     private GenericAdapter adapter;
     private FncListViewModel viewModel;
     private ActivityUpdateFncBinding binding;
-    
 
+
+    /**
+     * Called when the activity is starting. This method initializes the activity setup.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously
+     *                           being shut down then this Bundle contains the data it most
+     *                           recently supplied in onSaveInstanceState(Bundle).
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initializeActivity();
     }
 
+
+    /**
+     * Initializes the activity by inflating its layout, setting up the ViewModel, and configuring the date range picker.
+     */
     private void initializeActivity() {
         binding = ActivityUpdateFncBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -37,12 +55,19 @@ public class UpdateFncActivity extends BaseActivity implements GenericAdapter.On
 
     }
 
+    /**
+     * Initializes the ViewModel, sets up the toolbar, header, and RecyclerView for displaying FNC items.
+     */
     private void initializeViewModel() {
         viewModel = new ViewModelProvider(this).get(FncListViewModel.class);
         configureToolbarAndHeader();
         initializeRecyclerView();
     }
 
+
+    /**
+     * Sets up a click listener for the date range picker. Allows users to select a start and end date to filter FNCs.
+     */
     private void onDateRangePickerClick() {
         binding.selectedDate.setOnClickListener(v -> {
             MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
@@ -61,7 +86,12 @@ public class UpdateFncActivity extends BaseActivity implements GenericAdapter.On
         });
     }
 
-
+    /**
+     * Converts a Unix time value to a formatted date string.
+     *
+     * @param time The Unix time value.
+     * @return A string representation of the date.
+     */
     private String convertTimeToDate(long time) {
         Calendar utc = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         utc.setTimeInMillis(time);
@@ -69,33 +99,48 @@ public class UpdateFncActivity extends BaseActivity implements GenericAdapter.On
         return format.format(utc.getTime());
     }
 
+
+    /**
+     * Configures the toolbar and updates the header with the user's name.
+     */
     private void configureToolbarAndHeader() {
         setupToolbar();
         updateHeaderWithUserName();
     }
 
+    /**
+     * Initializes the RecyclerView for displaying FNC items and observes changes in the ViewModel.
+     */
     private void initializeRecyclerView() {
         setupAdapter();
         setupRecyclerViewLayout();
         observeViewModel();
     }
 
-
+    /**
+     * Sets up the adapter for the RecyclerView.
+     */
     private void setupAdapter() {
-        adapter = new GenericAdapter(this, new ArrayList<>(),  this);
+        adapter = new GenericAdapter(this, new ArrayList<>(),  null);
     }
 
+
+    /**
+     * Configures the RecyclerView layout.
+     */
     private void setupRecyclerViewLayout() {
         binding.fncListView.setLayoutManager(new LinearLayoutManager(this));
         binding.fncListView.setAdapter(adapter);
     }
 
+
+    /**
+     * Observes changes in the ViewModel to update the RecyclerView with new FNC items.
+     */
     private void observeViewModel() {
         viewModel.getItems().observe(this, adapter::setItems);
     }
 
 
-    @Override
-    public void onDeleteItem(int position) {
-    }
+
 }
