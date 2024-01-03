@@ -17,6 +17,7 @@ import com.ambapharm.databinding.ActivityAuthenticationBinding;
 import com.ambapharm.ui.viewModels.AuthViewModel;
 import com.ambapharm.ui.viewModels.AuthViewModelFactory;
 import com.google.android.material.textfield.TextInputLayout;
+import com.journeyapps.barcodescanner.ScanIntentResult;
 
 import java.util.Objects;
 
@@ -62,8 +63,8 @@ public class AuthenticationActivity extends BaseActivity {
         setContentView(binding.getRoot());
         setupLoginButton();
         setupTextWatchers();
+        setupLoginWithCipCode();
 
-        binding.imageView.setOnClickListener(v -> scanBarcode());
     }
 
     /**
@@ -132,9 +133,12 @@ public class AuthenticationActivity extends BaseActivity {
                 navigateToDashboard();
             }
         });
+        viewModel.getErrorMessageResId().observe(this, resId -> {
+            if (resId != null && resId != 0) {
+                Toast.makeText(this, getString(resId), Toast.LENGTH_LONG).show();
+            }
+        });
 
-        viewModel.getLoginErrorMessage().observe(this, errorMsg ->
-                Toast.makeText(this, errorMsg, Toast.LENGTH_SHORT).show());
     }
 
 
@@ -151,6 +155,31 @@ public class AuthenticationActivity extends BaseActivity {
             }
         });
     }
+
+
+    private void setupLoginWithCipCode() {
+        binding.imageView.setOnClickListener(v -> scanBarcode());
+    }
+
+
+
+    /**
+     * Called when a barcode is scanned for LogIn.
+     *
+     * @param result The result of the barcode scan.
+     */
+    @Override
+    protected void onBarcodeScanned(ScanIntentResult result) {
+        if (result.getContents() != null) {
+            viewModel.loginWithCipcode(result.getContents());
+        } else {
+            String errorMessage = result.getErrorCorrectionLevel() != null
+                    ? "Scan error: " + result.getErrorCorrectionLevel()
+                    : getString(R.string.errorScan); // Assuming you have a string resource for scan failure
+            Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
+        }
+    }
+
 
     /**
      * Validates the login form input.

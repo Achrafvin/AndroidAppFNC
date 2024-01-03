@@ -69,8 +69,7 @@ public class BaseActivity extends AppCompatActivity {
      *
      * @param result The result of the barcode scan.
      */
-    protected void onBarcodeScanned(ScanIntentResult result) {
-    }
+    protected void onBarcodeScanned(ScanIntentResult result) {}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

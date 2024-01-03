@@ -193,7 +193,7 @@ public class AddDescriptionActivity extends BaseActivity {
         if (result.getContents() != null) {
             binding.codeNum.setText(result.getContents());
         } else {
-            Toast.makeText(this, result.getErrorCorrectionLevel() != null ? "Scan error: " + result.getErrorCorrectionLevel() : getString(R.string.errorLoginFailed), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, result.getErrorCorrectionLevel() != null ? "Scan error: " + result.getErrorCorrectionLevel() : getString(R.string.messageErrorOccurred), Toast.LENGTH_LONG).show();
         }
     }
 }

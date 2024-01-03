@@ -1,12 +1,12 @@
 package com.ambapharm.ui.viewModels;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.ambapharm.R;
 import com.ambapharm.data.dao.UserDao;
 import com.ambapharm.data.entities.User;
-import android.content.res.Resources;
 
 
 
@@ -18,8 +18,9 @@ import android.content.res.Resources;
 public class AuthViewModel extends ViewModel {
 
     private MutableLiveData<Boolean> loginStatus = new MutableLiveData<>();
-    private MutableLiveData<String> loginErrorMessage = new MutableLiveData<>();
     private MutableLiveData<User> loggedInUser = new MutableLiveData<>();
+
+    private MutableLiveData<Integer> errorMessageResId = new MutableLiveData<>();
     private UserDao userDao;
 
 
@@ -56,11 +57,11 @@ public class AuthViewModel extends ViewModel {
      *
      * @return LiveData containing the error message of the login operation.
      */
-    public MutableLiveData<String> getLoginErrorMessage() {
-        return loginErrorMessage;
+
+
+    public LiveData<Integer> getErrorMessageResId() {
+        return errorMessageResId;
     }
-
-
 
     /**
      * Attempts to log in a user with the provided email and password.
@@ -76,20 +77,29 @@ public class AuthViewModel extends ViewModel {
                 loggedInUser.postValue(user);
                 loginStatus.postValue(true);
             } else {
-                loginErrorMessage.postValue("Identifiant ou mot de passe incorrect");
+                errorMessageResId.postValue(R.string.errorLogin);
                 loginStatus.postValue(false);
             }
         }).start();
 
     }
 
-//    public void loginWithBarcode(String barcodeData) {
-//        if (barcodeData.equals("ABC-1234")) {
-//            loggedInUser.setValue(new User("John Doe"));
-//            loginStatus.setValue(true);
-//        } else {
-//            loginErrorMessage.setValue("Barcode invalide");
-//            loginStatus.setValue(false);
-//        }
-//    }
+    /**
+     * Attempts to log in a user with the provided CIP code.
+     * It queries the UserDao for a user with the given credential and updates the login status and user data accordingly.
+     *
+     * @param barcodeData    The user's cip code.
+     */
+    public void loginWithCipcode(String barcodeData) {
+        new Thread(() -> {
+            User user = userDao.findUserByCipCode(barcodeData);
+            if (user != null) {
+                loggedInUser.postValue(user);
+                loginStatus.postValue(true);
+            } else {
+                errorMessageResId.postValue(R.string.errorLoginCipCode);
+                loginStatus.postValue(false);
+            }
+        }).start();
+    }
 }

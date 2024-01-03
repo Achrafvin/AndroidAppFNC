@@ -53,6 +53,7 @@
 
     <!--Error Messages-->
     <string name="errorLogin">Identifiant ou mot de passe incorrect.</string>
+    <string name="errorLoginCipCode">CIP code incorrect.</string>
     <string name="errorSelectOrder">Veuillez entrer un numéro de commande.</string>
     <string name="errorEmptyComment">Veuillez saisir un commentaire.</string>
     <string name="errorEmptyCodeProduct">Veuillez saisir un code produit.</string>
@@ -62,6 +63,7 @@
     <string name="errorPassword">Veuillez saisir votre mot de passe.</string>
     <string name="errorInvalidFileFormat">Le fichier est corrompu.</string>
     <string name="errorSavingDocument">Erreur lors de l\'enregistrement du document.</string>
+    <string name="errorScan">Erreur de numérisation du code-barres.</string>
 
 
     <!--Delete Modal-->

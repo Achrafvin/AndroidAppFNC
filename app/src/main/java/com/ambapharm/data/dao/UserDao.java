@@ -21,6 +21,9 @@ public interface UserDao {
     @Query("SELECT * FROM User WHERE email = :email AND password = :password")
     User findByIdentityAndPassword(String email, String password);
 
+    @Query("SELECT * FROM User WHERE cip = :cipCode")
+    User findUserByCipCode(String cipCode);
+
     @Query("SELECT * FROM User WHERE id = :id")
     User findById(Long id);
 
