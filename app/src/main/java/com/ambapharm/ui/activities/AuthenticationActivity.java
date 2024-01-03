@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Room;
 
+import com.ambapharm.R;
 import com.ambapharm.data.AppDatabase;
 import com.ambapharm.data.dao.UserDao;
 import com.ambapharm.data.entities.User;
@@ -18,6 +19,7 @@ import com.ambapharm.ui.viewModels.AuthViewModelFactory;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
+
 
 
 /**
@@ -141,6 +143,7 @@ public class AuthenticationActivity extends BaseActivity {
      */
     private void setupLoginButton() {
         binding.login.setOnClickListener(v -> {
+            hideKeyboard();
             String identity = Objects.requireNonNull(binding.identityInput.getText()).toString();
             String password = Objects.requireNonNull(binding.passwordInput.getText()).toString();
             if (validateForm(identity, password)) {
@@ -171,7 +174,7 @@ public class AuthenticationActivity extends BaseActivity {
      */
     private boolean validateIdentity(String identity) {
         if (identity.isEmpty()) {
-            binding.identityLayout.setError("Identifiant requise");
+            binding.identityLayout.setError(getString(R.string.errorIdentity));
             return false;
         }else {
             binding.identityLayout.setError(null);
@@ -188,7 +191,7 @@ public class AuthenticationActivity extends BaseActivity {
      */
     private boolean validatePassword(String password) {
         if (password.isEmpty()) {
-            binding.pwdLayout.setError("Mot de passe requis");
+            binding.pwdLayout.setError(getString(R.string.errorPassword));
             return false;
         } else {
             binding.pwdLayout.setError(null);

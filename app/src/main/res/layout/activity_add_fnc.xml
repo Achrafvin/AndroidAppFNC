@@ -54,41 +54,39 @@
         app:layout_constraintTop_toBottomOf="@+id/issue_cmt" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="@dimen/dp_0"
-        android:layout_marginBottom="@dimen/_20sdp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/verticalR"
-        app:layout_constraintStart_toStartOf="@+id/verticalL"
-        app:layout_constraintTop_toBottomOf="@+id/divider">
+            android:id="@+id/constraintLayout"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="@dimen/dp_0"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toStartOf="@+id/verticalR"
+            app:layout_constraintStart_toStartOf="@+id/verticalL"
+            app:layout_constraintTop_toBottomOf="@+id/divider" app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/fnc_card_empty"
-            style="@style/Card"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_100sdp"
-            android:backgroundTint="@color/card">
+                android:id="@+id/fnc_card_empty"
+                style="@style/Card"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100sdp"
+                android:backgroundTint="@color/card">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
                 <TextView
-                    android:id="@+id/fnc_title"
-                    style="@style/Text"
-                    android:text="@string/messageNoSummaryAvailable" />
+                        android:id="@+id/fnc_title"
+                        style="@style/Text"
+                        android:text="@string/messageNoSummaryAvailable"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
         <FrameLayout
-            android:id="@+id/fncContentContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible"
-            app:layout_constraintTop_toBottomOf="@+id/fnc_card_empty">
+                android:id="@+id/fncContentContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@+id/fnc_card_empty">
 
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/cardView"
@@ -96,15 +94,6 @@
                     android:layout_height="match_parent"/>
         </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <View
-        android:id="@+id/overlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/transparent"
-        android:clickable="true"
-        android:focusable="true"
-        android:visibility="gone" />
 
 
     <include

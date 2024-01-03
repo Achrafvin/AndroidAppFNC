@@ -58,7 +58,7 @@ dependencies {
     implementation("androidx.test.ext:junit:1.1.5")
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     implementation ("com.github.barteksc:android-pdf-viewer:3.2.0-beta.1")
-
+    implementation ("com.github.chrisbanes:PhotoView:2.0.0")
 
 
     //TEST

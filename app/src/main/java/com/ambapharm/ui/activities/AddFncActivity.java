@@ -156,6 +156,7 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
             hideKeyboard();
             toggleFabMenu(binding.includedToolbar.buttonFile.getVisibility() == View.GONE);
         });
+        binding.includedToolbar.overlay.setOnClickListener(view -> toggleFabMenu(false));
     }
 
     private void toggleFabMenu(boolean show) {
@@ -167,7 +168,7 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
         binding.includedToolbar.buttonFile.setVisibility(visibility);
         binding.includedToolbar.buttonCamere.setVisibility(visibility);
         binding.includedToolbar.buttonDescription.setVisibility(visibility);
-        binding.overlay.setVisibility(visibility);
+        binding.includedToolbar.overlay.setVisibility(visibility);
         binding.includedToolbar.pjText.setVisibility(visibility);
         binding.includedToolbar.caText.setVisibility(visibility);
         binding.includedToolbar.lrText.setVisibility(visibility);
@@ -209,7 +210,6 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
                 }
         );
 
-
         documentPickerActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -237,12 +237,10 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
      * @param imageUri The URI of the selected image or document.
      */
     private void saveToStorage(Uri imageUri,String source) {
-
-        String fileName;
-        if ("gallery".equals(source)) {
-            fileName = createGalleryImageFileName();
-        } else {
-            fileName = getFileName(imageUri);
+        String fileName = determineFileName(imageUri, source);
+        if (!isValidFileExtension(fileName)) {
+            Toast.makeText(this, R.string.errorInvalidFileFormat, Toast.LENGTH_SHORT).show();
+            return;
         }
         File file = new File(getFilesDir(), fileName);
         try (InputStream in = getContentResolver().openInputStream(imageUri);
@@ -254,8 +252,16 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
             }
             viewModel.addDocAndImage(fileName, file.getAbsolutePath());
         } catch (IOException e) {
-            Log.e("AddFncActivity", "Error saving document", e);
+            Toast.makeText(this, R.string.errorSavingDocument, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private String determineFileName(Uri imageUri, String source) {
+        return "gallery".equals(source) ? createGalleryImageFileName() : getFileName(imageUri);
+    }
+
+    private boolean isValidFileExtension(String fileName) {
+        return fileName.endsWith(".pdf") || fileName.endsWith(".jpg");
     }
 
 
@@ -409,7 +415,7 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
 
     private boolean validateInput() {
         if (binding.issueCmt.getText().toString().trim().isEmpty()) {
-            Toast.makeText(this, "Champ requise", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.errorEmptyComment, Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -424,14 +430,14 @@ public class AddFncActivity extends BaseActivity implements GenericAdapter.OnIte
     @Override
     public void onDeleteItem(int position) {
         new AlertDialog.Builder(this)
-                .setTitle("Confirmer la Suppression")
-                .setMessage("Êtes-vous sûr de vouloir supprimer cet élément ?")
-                .setPositiveButton("Supprimé", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.titleDelete)
+                .setMessage(R.string.messageDelete)
+                .setPositiveButton(R.string.buttonDelete, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         viewModel.removeItem(position);
                     }
                 })
-                .setNegativeButton("Annuler", null)
+                .setNegativeButton(R.string.buttonCancel, null)
                 .show();
 
     }

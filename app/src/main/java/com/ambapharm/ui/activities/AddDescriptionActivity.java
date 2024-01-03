@@ -128,21 +128,21 @@ public class AddDescriptionActivity extends BaseActivity {
      */
     private boolean validateInput() {
         if (binding.codeNum.getText().toString().trim().isEmpty()) {
-            Toast.makeText(this, "Champ requise", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.errorEmptyCodeProduct, Toast.LENGTH_SHORT).show();
             return false;
         }
         if (!isItemSelected && binding.typeProblem.getText().toString().trim().isEmpty()) {
-            Toast.makeText(this, "Champ requise", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.errorEmptyProblemType, Toast.LENGTH_SHORT).show();
             return false;
         }else{
             selectedItem = binding.typeProblem.getText().toString().trim();
         }
         if (binding.quantityTxt.getText().toString().trim().isEmpty()) {
-            Toast.makeText(this, "Champ requise", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.errorEmptyQuantity, Toast.LENGTH_SHORT).show();
             return false;
         }
         if (binding.issueCmt2.getText().toString().trim().isEmpty()) {
-            Toast.makeText(this, "Champ requise", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.errorEmptyComment, Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

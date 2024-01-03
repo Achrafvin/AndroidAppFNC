@@ -3,8 +3,11 @@ package com.ambapharm.ui.viewModels;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.ambapharm.R;
 import com.ambapharm.data.dao.UserDao;
 import com.ambapharm.data.entities.User;
+import android.content.res.Resources;
+
 
 
 /**
@@ -73,7 +76,7 @@ public class AuthViewModel extends ViewModel {
                 loggedInUser.postValue(user);
                 loginStatus.postValue(true);
             } else {
-                loginErrorMessage.postValue("Invalid identity or password");
+                loginErrorMessage.postValue("Identifiant ou mot de passe incorrect");
                 loginStatus.postValue(false);
             }
         }).start();

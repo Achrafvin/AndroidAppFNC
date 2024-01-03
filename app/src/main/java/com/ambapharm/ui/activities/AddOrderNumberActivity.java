@@ -79,9 +79,10 @@ public class AddOrderNumberActivity extends BaseActivity {
      * Validates the input and navigates to the next activity for adding comments to the FNC.
      */
     private void processNextIssue() {
+        hideKeyboard();
         String inputText = binding.auto.getText().toString();
         if (!isItemSelected && inputText.isEmpty()) {
-            Toast.makeText(this, R.string.promptSelectOrder, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.errorSelectOrder, Toast.LENGTH_SHORT).show();
             return;
         }
         if (!isItemSelected) {

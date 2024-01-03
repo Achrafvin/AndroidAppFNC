@@ -10,9 +10,11 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        jcenter()
+       maven { url = uri("https://www.jitpack.io") }
+        jcenter()   // Warning: this repository is going to shut down soon
     }
 }
+
 
 rootProject.name = "AmbapharmApp"
 include(":app")

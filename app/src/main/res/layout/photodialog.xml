@@ -3,18 +3,49 @@
                                                    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:padding="@dimen/_10sdp"
                                                    android:orientation="vertical">
 
-    <Button
-            android:id="@+id/btnChooseGallery"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Sélectionner dans la Galerie" />
 
-    <Button
+    <ImageView
+            android:id="@+id/btnChooseGallery"
+            android:layout_width="@dimen/_45sdp"
+            android:layout_height="@dimen/_45sdp"
+            android:background="@drawable/bg_circle_background"
+            android:src="@drawable/ic_gallery"
+            android:padding="@dimen/_7sdp"
+            app:tint="@color/ico"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toStartOf="@+id/btnTakePhoto"/>
+
+    <TextView
+            android:text="@string/labelForGallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/btnChooseGallery"
+            android:textStyle="bold"
+
+            app:layout_constraintEnd_toEndOf="@+id/btnChooseGallery"
+            app:layout_constraintStart_toStartOf="@+id/btnChooseGallery" android:layout_marginTop="5dp"/>
+    <ImageView
             android:id="@+id/btnTakePhoto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Prendre une Photo" app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="50dp"
-            tools:layout_editor_absoluteX="12dp"/>
+            android:layout_width="@dimen/_45sdp"
+            android:layout_height="@dimen/_45sdp"
+            android:background="@drawable/bg_circle_background"
+            android:src="@drawable/ic_camera"
+            android:padding="@dimen/_7sdp"
+            app:tint="@color/ico"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintStart_toEndOf="@+id/btnChooseGallery"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+            android:text="@string/labelForCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textView6"
+            app:layout_constraintEnd_toEndOf="@+id/btnTakePhoto"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/btnTakePhoto"
+            app:layout_constraintStart_toStartOf="@+id/btnTakePhoto" android:layout_marginTop="5dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

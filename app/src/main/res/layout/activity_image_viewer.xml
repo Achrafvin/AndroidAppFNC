@@ -6,17 +6,17 @@
         android:layout_height="match_parent"
         tools:context=".ui.activities.ImageViewerActivity">
 
-    <ImageView
+    <com.github.chrisbanes.photoview.PhotoView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitCenter" />
+    android:background="@color/black"/>
 
-    <ImageView android:layout_width="@dimen/_30sdp" android:layout_height="@dimen/_30sdp"
+    <ImageView android:layout_width="@dimen/_25sdp" android:layout_height="@dimen/_25sdp"
                android:id="@+id/closeViewer"
                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="30dp"
                android:src="@drawable/ic_close"
-               app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="20dp" app:tint="@color/black"/>
+               app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="20dp" app:tint="@color/white"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

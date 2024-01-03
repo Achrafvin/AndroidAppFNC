@@ -30,9 +30,11 @@
         </provider>
         <activity
                 android:name=".ui.activities.DocumentViewerActivity"
+                android:screenOrientation="portrait"
                 android:exported="false"/>
         <activity
                 android:name=".ui.activities.ImageViewerActivity"
+                android:screenOrientation="portrait"
                 android:exported="false"/>
         <activity
                 android:name=".ui.activities.AddDescriptionActivity"

@@ -22,6 +22,14 @@
     <include
         android:id="@+id/appBarLayout"
         layout="@layout/view_toolbar"/>
+    <View
+            android:id="@+id/overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_menu"
@@ -140,6 +148,7 @@
         app:fabCustomSize="@dimen/_37sdp"
         app:layout_constraintEnd_toEndOf="@id/verticalR"
         app:layout_constraintTop_toBottomOf="@+id/buttonFile" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
