@@ -1,5 +1,6 @@
 package com.gapharma.ui.viewModels;
 
+import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -7,6 +8,11 @@ import androidx.lifecycle.ViewModel;
 import com.gapharma.data.dao.UserDao;
 import com.gapharma.data.entities.User;
 import com.gapharma.R;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
 /**
@@ -16,11 +22,15 @@ import com.gapharma.R;
  */
 public class AuthViewModel extends ViewModel {
 
-    private MutableLiveData<Boolean> loginStatus = new MutableLiveData<>();
-    private MutableLiveData<User> loggedInUser = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> loginStatus = new MutableLiveData<>();
+    private final MutableLiveData<User> loggedInUser = new MutableLiveData<>();
 
-    private MutableLiveData<Integer> errorMessageResId = new MutableLiveData<>();
-    private UserDao userDao;
+    private final MutableLiveData<Integer> errorMessageResId = new MutableLiveData<>();
+    private final UserDao userDao;
+
+    private final CompositeDisposable disposables = new CompositeDisposable();
+
+
 
 
     /**
@@ -30,6 +40,12 @@ public class AuthViewModel extends ViewModel {
      */
     public AuthViewModel(UserDao userDao) {
         this.userDao = userDao;
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        disposables.dispose();
     }
 
 
@@ -70,18 +86,21 @@ public class AuthViewModel extends ViewModel {
      * @param password The user's password.
      */
     public void login(String identity, String password) {
-        new Thread(() -> {
-            User user = userDao.findByIdentityAndPassword(identity, password);
-            if (user != null) {
-                loggedInUser.postValue(user);
-                loginStatus.postValue(true);
-            } else {
-                errorMessageResId.postValue(R.string.errorLogin);
-                loginStatus.postValue(false);
-            }
-        }).start();
-
+      Disposable disposable = Single.fromCallable(() -> userDao.findByIdentityAndPassword(identity, password))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(user -> {
+                    if (user != null) {
+                        loggedInUser.postValue(user);
+                        loginStatus.postValue(true);
+                    } else {
+                        errorMessageResId.postValue(R.string.errorLogin);
+                        loginStatus.postValue(false);
+                    }
+                }, throwable -> Log.e("LoginError", "Error logging in", throwable));
+        disposables.add(disposable);
     }
+
 
     /**
      * Attempts to log in a user with the provided CIP code.
@@ -90,15 +109,23 @@ public class AuthViewModel extends ViewModel {
      * @param barcodeData    The user's cip code.
      */
     public void loginWithCipcode(String barcodeData) {
-        new Thread(() -> {
-            User user = userDao.findUserByCipCode(barcodeData);
-            if (user != null) {
-                loggedInUser.postValue(user);
-                loginStatus.postValue(true);
-            } else {
-                errorMessageResId.postValue(R.string.errorLoginCipCode);
-                loginStatus.postValue(false);
-            }
-        }).start();
+        Disposable disposable = Single.fromCallable(() -> userDao.findUserByCipCode(barcodeData))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(user -> {
+                    if (user != null) {
+                        loggedInUser.postValue(user);
+                        loginStatus.postValue(true);
+                    } else {
+                        errorMessageResId.postValue(R.string.errorLoginCipCode);
+                        loginStatus.postValue(false);
+                    }
+                }, throwable -> {
+                    Log.e("LoginError", "Error during login with CIP code", throwable);
+                });
+
+        disposables.add(disposable);
     }
+
+
 }

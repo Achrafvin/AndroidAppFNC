@@ -59,6 +59,9 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     implementation ("com.github.barteksc:android-pdf-viewer:3.2.0-beta.1")
     implementation ("com.github.chrisbanes:PhotoView:2.0.0")
+    implementation ("io.reactivex.rxjava3:rxandroid:3.0.2")
+    implementation ("io.reactivex.rxjava3:rxjava:3.1.8")
+
 
 
     //TEST

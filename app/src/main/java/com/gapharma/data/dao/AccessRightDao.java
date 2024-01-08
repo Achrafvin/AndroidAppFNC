@@ -13,7 +13,4 @@ public interface AccessRightDao {
     @Query("SELECT * FROM access_right WHERE id = :id")
     AccessRight findById(Long id);
 
-    @Query("SELECT COUNT(id) FROM access_right WHERE id = :id")
-    int countById(long id);
-
 }

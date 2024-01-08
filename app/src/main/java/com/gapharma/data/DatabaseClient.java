@@ -8,9 +8,10 @@ public class DatabaseClient {
     private AppDatabase appDatabase;
 
     private DatabaseClient(Context context) {
-        // Create the database here
-        appDatabase = Room.databaseBuilder(context, AppDatabase.class, "gapharma").build();
-    }
+
+            appDatabase = Room.inMemoryDatabaseBuilder(context.getApplicationContext(), AppDatabase.class)
+                    .build();
+          }
 
     public static synchronized DatabaseClient getInstance(Context context) {
         if (instance == null) {

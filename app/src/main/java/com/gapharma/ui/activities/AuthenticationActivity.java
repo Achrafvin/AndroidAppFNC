@@ -20,6 +20,12 @@ import com.gapharma.ui.viewModels.AuthViewModelFactory;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.journeyapps.barcodescanner.ScanIntentResult;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 import java.util.Objects;
 
@@ -35,6 +41,9 @@ public class AuthenticationActivity extends BaseActivity  {
     private ActivityAuthenticationBinding binding;
     private AuthViewModel viewModel;
 
+    private final CompositeDisposable disposables = new CompositeDisposable();
+
+
     /**
      * Called when the activity is starting. This method sets up the activity and database, and observes the ViewModel.
      *
@@ -48,6 +57,13 @@ public class AuthenticationActivity extends BaseActivity  {
         initializeActivity();
         initializeDatabase();
         observeViewModel();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        disposables.dispose();
     }
 
 
@@ -95,27 +111,23 @@ public class AuthenticationActivity extends BaseActivity  {
      * @param user The user object containing the user's information.
      */
     private void saveUserInfo(User user) {
-
-
-        new Thread(() -> {
-            try {
-                AccessRightDao accessRightDao = DatabaseClient.getInstance(this).getAppDatabase().accessRightDao();
-                AccessRight accessRight = accessRightDao.findById(user.getAccessRightId());
-
-                runOnUiThread(() -> {
+      Disposable disposable = Single.fromCallable(() -> {
+                    AccessRightDao accessRightDao = DatabaseClient.getInstance(this).getAppDatabase().accessRightDao();
+                    return accessRightDao.findById(user.getAccessRightId());
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(accessRight -> {
                     SharedPreferences sharedPreferences = getSharedPreferences("UserPref", MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("userName", user.getName());
                     editor.putBoolean("isLoggedIn", true);
                     editor.putString("userRole", accessRight != null ? accessRight.getName() : "null");
                     editor.apply();
-                });
-            }catch (Exception e){
-                Log.e("AuthActivity", "Error Getting AccessRight", e);
-            }
-        }).start();
-    }
+                }, throwable -> Log.e("AuthActivity", "Error Getting AccessRight", throwable));
+        disposables.add(disposable);
 
+    }
 
 
     /**
@@ -124,28 +136,30 @@ public class AuthenticationActivity extends BaseActivity  {
     private void initializeDatabase() {
         UserDao userDao = DatabaseClient.getInstance(this).getAppDatabase().userDao();
         AccessRightDao accessRightDao = DatabaseClient.getInstance(this).getAppDatabase().accessRightDao();
+        AccessRight admin = new AccessRight(1L, "ROLE_ADMIN");
+        AccessRight user = new AccessRight(2L, "ROLE_USER");
+
+        User testUser = new User("John", "Id1", "group@example.com", "123456", "4754P4252", admin.getId());
+        User testUser2 = new User("User test2", "Id2", "group@example.com", "123456", "4754P42235", user.getId());
+        User testUser3 = new User("User test3", "Id3", "group@example.com", "123456", "4754P45258", user.getId());
 
 
-        User testUser = new User("John", "Id1", "group@example.com", "123456", "4754P4252", 1L);
-        User testUser2 = new User("User test2", "Id2", "group@example.com", "123456", "4754P42235", 2L);
-        User testUser3 = new User("User test3", "Id3", "group@example.com", "123456", "4754P45258", 2L);
-
-
-        new Thread(() -> {
-            if (accessRightDao.countById(1L) == 0) {
-                accessRightDao.save(new AccessRight(1L, "Admin"));
-            }
-            if (accessRightDao.countById(2L) == 0) {
-                accessRightDao.save(new AccessRight(2L, "User"));
-            }
-            userDao.save(testUser);
-            userDao.save(testUser2);
-            userDao.save(testUser3);
-
-        }).start();
+       Disposable disposable = Completable.fromAction(() -> {
+                    accessRightDao.save(admin);
+                    accessRightDao.save(user);
+                    userDao.save(testUser);
+                    userDao.save(testUser2);
+                    userDao.save(testUser3);
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                }, throwable -> Log.e("DatabaseInit", "Error initializing database", throwable));
 
         AuthViewModelFactory factory = new AuthViewModelFactory(userDao);
         viewModel = new ViewModelProvider(this, factory).get(AuthViewModel.class);
+
+        disposables.add(disposable);
     }
 
     /**

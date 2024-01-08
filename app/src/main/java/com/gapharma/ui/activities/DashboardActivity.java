@@ -60,7 +60,7 @@ public class DashboardActivity extends BaseActivity {
         binding.updateNfc.setOnClickListener(view -> navigateToFncListActivity());
         String userRole = getUserRole();
 
-        if ("Admin".equals(userRole)) {
+        if ("ROLE_ADMIN".equals(userRole)) {
             binding.buttonAddUser.setVisibility(View.VISIBLE);
             binding.buttonSettings.setVisibility(View.VISIBLE);
             binding.buttonAddUser.setOnClickListener(view -> navigateToAddUserActivity());
@@ -74,9 +74,8 @@ public class DashboardActivity extends BaseActivity {
 
     private String getUserRole() {
         SharedPreferences sharedPreferences = getSharedPreferences("UserPref", MODE_PRIVATE);
-        return sharedPreferences.getString("userRole", "");
+        return sharedPreferences.getString("userRole", "null");
     }
-
 
 
     /**
