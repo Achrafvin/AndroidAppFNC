@@ -1,17 +1,27 @@
 <resources>
-    <string name="appName">Ambapharm</string>
+    <string name="appName">GaPharma</string>
     <string name="labelCipCode">CIP Code</string>
     <string name="messageWelcome">Bienvenue</string>
     <string name="inputIdentifiant">Identifiant</string>
     <string name="inputPassword">Mot de passe</string>
+    <string name="inputNom">Nom</string>
+    <string name="inputEmail">Email</string>
+    <string name="inputCIP">CIP</string>
+    <string name="inputRole">Role</string>
     <string name="buttonLogin">S\'IDENTIFIER</string>
     <string name="labelUsername">Nom de l\'utilisateur</string>
     <string name="labelSelectOption">Choisir une option</string>
     <string name="buttonLogout">Déconnecté</string>
+    <string name="buttonRegister">Enregistrer</string>
     <string name="titleCreateNcf">Créer une nouvelle FNC</string>
-    <string name="titleManageAnomalies">Gérer les <font color='#6200ea'>anomalies</font> détectées</string>
-    <string name="titleEnterOrderNumber">Saisir le <font color='#6200ea'>numéro de commande</font></string>
-    <string name="titleEnterProblemType">Saisir le <font color='#6200ea'>type de problème</font></string>
+    <string name="titleManageAnomalies">Gérer les <font color='#6200ea'>anomalies</font> détectées
+    </string>
+    <string name="titleEnterOrderNumber">Saisir le
+        <font color='#6200ea'>numéro de commande</font>
+    </string>
+    <string name="titleEnterProblemType">Saisir le
+        <font color='#6200ea'>type de problème</font>
+    </string>
     <string name="buttonCreateNcf">Créer une nouvelle FNC</string>
     <string name="buttonUpdateNcf">Mettre à jour la FNC</string>
     <string name="labelOrderNumber">Numéro de commande</string>
@@ -32,6 +42,8 @@
     <string name="titleMainActivity">MainActivity</string>
     <string name="titleHome">Acceuil</string>
     <string name="titleDashboard">Dashboard</string>
+    <string name="titleAddUser">Ajouter un <font color='#6200ea'>utilisateur</font></string>
+    <string name="titleAppSettings">Données <font color='#6200ea'>statiques</font></string>
     <string name="titleNotifications">Notifications</string>
     <string name="messageNcfSentSuccess">La FNC a été envoyée avec succès</string>
     <string name="labelYourFNC">Vos FNC</string>
@@ -40,6 +52,7 @@
     <string name="buttonAddLine">AJOUTER LA LIGNE</string>
     <string name="buttonClose">Fermer</string>
     <string name="buttonSave">Sauvegarder</string>
+    <string name="buttonAddUser">Ajouter utilisateur</string>
     <string name="labelQuantity">Quantité</string>
     <string name="inputCommentText">Texte du commentaire</string>
     <string name="actionTakePhoto">Take Photo</string>
@@ -50,6 +63,10 @@
     <string name="labelForGallery">Galerie</string>
     <string name="labelForCamera">Camera</string>
     <string name="labelForDocument">Document</string>
+    <string name="labelForFncState">Etat FNC</string>
+    <string name="labelForFncType">Type FNC</string>
+    <string name="labelForFncRep">Répertoire FNC</string>
+
 
     <!--Error Messages-->
     <string name="errorLogin">Identifiant ou mot de passe incorrect.</string>
@@ -64,6 +81,17 @@
     <string name="errorInvalidFileFormat">Le fichier est corrompu.</string>
     <string name="errorSavingDocument">Erreur lors de l\'enregistrement du document.</string>
     <string name="errorScan">Erreur de numérisation du code-barres.</string>
+    <string name="errorEmptyName">Veuillez saisir un nom.</string>
+    <string name="errorEmptyIdentity">Veuillez saisir un identifiant.</string>
+    <string name="errorEmptyEmail">Veuillez saisir un email.</string>
+    <string name="errorEmptyPassword">Veuillez saisir un password.</string>
+    <string name="errorEmptyCIP">Veuillez saisir un cip.</string>
+    <string name="errorEmptyRole">Veuillez saisir un role.</string>
+    <string name="errorInvalidEmail">Email format invalide.</string>
+    <string name="errorEmptyState">Veuillez saisir un state.</string>
+    <string name="errorEmptyType">Veuillez saisir un type.</string>
+    <string name="errorEmptyDir">Veuillez saisir un répertoire.</string>
+
 
 
     <!--Delete Modal-->
@@ -92,6 +120,8 @@
         <item>Produit.s manquant.s dans colis intact</item>
         <item>Produit.s en +</item>
     </string-array>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 
 </resources>

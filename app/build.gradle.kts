@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.ambapharm"
+    namespace = "com.gapharma"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.ambapharm"
+        applicationId = "com.gapharma"
         minSdk = 27
         targetSdk = 34
         versionCode = 1

@@ -1,6 +1,6 @@
 <resources
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <style name="Theme.AmbapharmApp" parent="Theme.Material3.Light.NoActionBar" />
+    <style name="Theme.GaPharma" parent="Theme.Material3.Light.NoActionBar" />
     <style name="Widget.App.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
     </style>
@@ -107,5 +107,9 @@
 
     <style name="ThemeMaterialCalandar" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
         <item name="android:windowFullscreen">false</item>
+    </style>
+    <style name="ThemeOverlay.AmbapharmApp.FullscreenContainer" parent="">
+        <item name="fullscreenBackgroundColor">@color/light_blue_600</item>
+        <item name="fullscreenTextColor">@color/light_blue_A200</item>
     </style>
 </resources>

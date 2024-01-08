@@ -8,6 +8,8 @@
     tools:ignore="MissingConstraints"
     tools:context=".ui.activities.DashboardActivity">
 
+
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/verticalL"
         style="@style/verticalL" />
@@ -19,6 +21,7 @@
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/horizontalT"
         style="@style/horizontalT"/>
+
 
     <TextView
         android:id="@+id/textView4"
@@ -103,9 +106,42 @@
 
     </androidx.cardview.widget.CardView>
 
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/buttonSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            style="@style/Widget.MaterialComponents.FloatingActionButton"
+            android:foregroundGravity="bottom"
+            android:contentDescription="@string/labelSelectOption"
+            app:backgroundTint="@color/blue"
+            app:srcCompat="@drawable/ic_settings"
+            app:layout_constraintEnd_toEndOf="@id/verticalR"
+            app:layout_constraintTop_toBottomOf="@+id/updateNfc"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/buttonAddUser"
+            style="@style/Widget.MaterialComponents.FloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:backgroundTint="@color/blue"
+            android:contentDescription="Ajouter utilisateur"
+            android:text="@string/buttonAddUser"
+            app:icon="@drawable/ic_add"
+            app:layout_constraintEnd_toStartOf="@+id/buttonSettings"
+            app:layout_constraintBottom_toBottomOf="@+id/buttonSettings"
+            app:layout_constraintTop_toTopOf="@+id/buttonSettings"
+            app:layout_constraintStart_toStartOf="@id/verticalL"
+            android:textColor="@color/white"
+            app:iconTint="@color/white"/>
+
     <include
-        android:id="@+id/includedToolbar"
-        layout="@layout/view_toolbar"/>
+            android:id="@+id/includedToolbar"
+            layout="@layout/view_toolbar"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
