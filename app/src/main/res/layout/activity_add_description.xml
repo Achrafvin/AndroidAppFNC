@@ -27,7 +27,6 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/_12sdp"
         app:boxBackgroundColor="@color/bg_color"
-        app:endIconDrawable="@drawable/ic_drag"
         app:layout_constraintEnd_toStartOf="@+id/codeIcon"
         app:layout_constraintStart_toStartOf="@+id/cmt"
         app:layout_constraintTop_toTopOf="@+id/horizontalT"
@@ -40,7 +39,6 @@
             android:backgroundTint="@color/bg_color"
             android:singleLine="true"
             android:inputType="text"
-            android:drawableEnd="@drawable/ic_drag"
             android:hint="@string/labelProductCode"
 
             />
@@ -129,23 +127,23 @@ android:id="@+id/quantityTxt"
             app:layout_constraintTop_toBottomOf="@+id/comment2" android:autofillHints=""/>
 
     <Button
-        android:id="@+id/addToLigne"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_55sdp"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_12sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:text="@string/buttonAddLine"
-        android:textColor="@color/black"
-        app:backgroundTint="@color/green"
-        app:icon="@drawable/ic_add"
-        app:iconSize="@dimen/_25sdp"
-        app:iconTint="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/issue_cmt2"
-        app:layout_constraintHorizontal_bias="0.47"
-        app:layout_constraintStart_toStartOf="@+id/issue_cmt2"
-        app:layout_constraintTop_toBottomOf="@+id/issue_cmt2"
-        tools:textSize="@dimen/_12sdp" />
+            android:id="@+id/addToLigne"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_55sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:text="@string/buttonAddLine"
+            android:textColor="@color/black"
+            app:backgroundTint="@color/green"
+            app:icon="@drawable/ic_add"
+            app:iconSize="@dimen/_25sdp"
+            app:iconTint="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/issue_cmt2"
+            app:layout_constraintHorizontal_bias="0.47"
+            app:layout_constraintStart_toStartOf="@+id/issue_cmt2"
+            app:layout_constraintTop_toBottomOf="@+id/issue_cmt2"
+            tools:textSize="@dimen/_12sdp"/>
 
     <include
         android:id="@+id/addImg"
