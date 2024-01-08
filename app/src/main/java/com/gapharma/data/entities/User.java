@@ -2,7 +2,12 @@ package com.gapharma.data.entities;
 
 import androidx.room.*;
 
-@Entity(tableName = "user")
+@Entity(tableName = "user",
+        foreignKeys = @ForeignKey(entity = AccessRight.class,
+                parentColumns = "id",
+                childColumns = "accessRightId",
+                onDelete = ForeignKey.CASCADE),
+        indices = {@Index("accessRightId")})
 public class User {
     @PrimaryKey(autoGenerate = true)
     private Long id;

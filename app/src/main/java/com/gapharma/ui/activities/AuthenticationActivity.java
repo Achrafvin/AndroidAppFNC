@@ -3,13 +3,15 @@ package com.gapharma.ui.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.room.Room;
 
 import com.gapharma.R;
-import com.gapharma.data.AppDatabase;
+import com.gapharma.data.DatabaseClient;
+import com.gapharma.data.dao.AccessRightDao;
 import com.gapharma.data.dao.UserDao;
+import com.gapharma.data.entities.AccessRight;
 import com.gapharma.data.entities.User;
 import com.gapharma.databinding.ActivityAuthenticationBinding;
 import com.gapharma.utils.GenericTextWatcher;
@@ -32,7 +34,6 @@ public class AuthenticationActivity extends BaseActivity  {
 
     private ActivityAuthenticationBinding binding;
     private AuthViewModel viewModel;
-
 
     /**
      * Called when the activity is starting. This method sets up the activity and database, and observes the ViewModel.
@@ -94,30 +95,53 @@ public class AuthenticationActivity extends BaseActivity  {
      * @param user The user object containing the user's information.
      */
     private void saveUserInfo(User user) {
-        SharedPreferences sharedPreferences = getSharedPreferences("UserPref", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("userName", user.getName());
-        editor.putBoolean("isLoggedIn", true);
-        editor.apply();
+
+
+        new Thread(() -> {
+            try {
+                AccessRightDao accessRightDao = DatabaseClient.getInstance(this).getAppDatabase().accessRightDao();
+                AccessRight accessRight = accessRightDao.findById(user.getAccessRightId());
+
+                runOnUiThread(() -> {
+                    SharedPreferences sharedPreferences = getSharedPreferences("UserPref", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("userName", user.getName());
+                    editor.putBoolean("isLoggedIn", true);
+                    editor.putString("userRole", accessRight != null ? accessRight.getName() : "null");
+                    editor.apply();
+                });
+            }catch (Exception e){
+                Log.e("AuthActivity", "Error Getting AccessRight", e);
+            }
+        }).start();
     }
+
 
 
     /**
      * Initializes the in-memory database and sets up the ViewModel.
      */
     private void initializeDatabase() {
-        AppDatabase db = Room.inMemoryDatabaseBuilder(getApplicationContext(), AppDatabase.class).build();
-        UserDao userDao = db.userDao();
+        UserDao userDao = DatabaseClient.getInstance(this).getAppDatabase().userDao();
+        AccessRightDao accessRightDao = DatabaseClient.getInstance(this).getAppDatabase().accessRightDao();
+
 
         User testUser = new User("John", "Id1", "group@example.com", "123456", "4754P4252", 1L);
-        User testUser2 = new User("User test2", "Id2", "group@example.com", "123456", "4754P42235", 1L);
-        User testUser3 = new User("User test3", "Id3", "group@example.com", "123456", "4754P45258", 1L);
+        User testUser2 = new User("User test2", "Id2", "group@example.com", "123456", "4754P42235", 2L);
+        User testUser3 = new User("User test3", "Id3", "group@example.com", "123456", "4754P45258", 2L);
 
 
         new Thread(() -> {
+            if (accessRightDao.countById(1L) == 0) {
+                accessRightDao.save(new AccessRight(1L, "Admin"));
+            }
+            if (accessRightDao.countById(2L) == 0) {
+                accessRightDao.save(new AccessRight(2L, "User"));
+            }
             userDao.save(testUser);
             userDao.save(testUser2);
             userDao.save(testUser3);
+
         }).start();
 
         AuthViewModelFactory factory = new AuthViewModelFactory(userDao);

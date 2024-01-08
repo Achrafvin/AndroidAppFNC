@@ -1,8 +1,10 @@
 package com.gapharma.ui.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import android.view.View;
 import com.gapharma.databinding.ActivityDashboardBinding;
 
 
@@ -56,8 +58,23 @@ public class DashboardActivity extends BaseActivity {
     private void configureNavigationButtons() {
         binding.addNfc.setOnClickListener(view -> navigateToAddFncActivity());
         binding.updateNfc.setOnClickListener(view -> navigateToFncListActivity());
-        binding.buttonAddUser.setOnClickListener(view -> navigateToAddUserActivity());
-        binding.buttonSettings.setOnClickListener(view -> navigateToAppSettingsActivity());
+        String userRole = getUserRole();
+
+        if ("Admin".equals(userRole)) {
+            binding.buttonAddUser.setVisibility(View.VISIBLE);
+            binding.buttonSettings.setVisibility(View.VISIBLE);
+            binding.buttonAddUser.setOnClickListener(view -> navigateToAddUserActivity());
+            binding.buttonSettings.setOnClickListener(view -> navigateToAppSettingsActivity());
+        } else {
+            binding.buttonAddUser.setVisibility(View.GONE);
+            binding.buttonSettings.setVisibility(View.GONE);
+        }
+    }
+
+
+    private String getUserRole() {
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPref", MODE_PRIVATE);
+        return sharedPreferences.getString("userRole", "");
     }
 
 
